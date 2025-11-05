@@ -1,0 +1,14 @@
+Time Complexity:
+Machine Independent
+Rate of time taken respect to input size
+Measured usually with O - Worst Case Scenario
+
+Computing Big O:
+Count operations for worst case
+Ignore Constants
+Drop the lower order terms
+
+Space Complexity:
+Auxillary Space + Input Space
+Auxillary Space is the space/memory used for solving.
+Avoid modifying the input space in general.
