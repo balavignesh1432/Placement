@@ -47,3 +47,9 @@ def insertionSort():
 
 # Use this Case for Stability Check
 # nums = [(3, 'A'), (3, 'B'), (2, 'C')]
+
+# Heap Sort - TC O(n logn), SC O(n)
+import heapq
+def heapSort():
+    heapq.heapify(nums)
+    return [heapq.heappop(nums) for _ in range(len(nums))]
