@@ -27,6 +27,9 @@ elif n == 2:
 else:
     n += 2
 
+# Ternary, no ?:
+s = "Adult" if n >= 18 else "Minor"
+
 # Parentheses needed for multi-line conditions.
 n, m = 1, 2
 if ((n > 2 and 
@@ -92,6 +95,7 @@ print(math.floor(3 / 2))
 print(math.ceil(3 / 2))
 print(math.sqrt(2))
 print(math.pow(2, 3))
+print(math.log10(5))
 
 # Max / Min Int (Infinity)
 float("inf")
