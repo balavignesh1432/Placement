@@ -1,3 +1,4 @@
+# Return array elements of array from 1 to n
 def printNos(x: int) -> List[int]: 
     def helper(n):
         if n == x:
@@ -6,6 +7,7 @@ def printNos(x: int) -> List[int]:
     return helper(1)
     # TC - O(N), Space - O(N) Stack Space
 
+# Print sum of first N numbers
 def sumFirstN(n: int) -> int:
     def helper(x):
         if x == 1:
@@ -17,6 +19,7 @@ def sumFirstN(n: int) -> int:
     return n * (n + 1) // 2
     # TC - O (1)
 
+# Print factorial of number
 def factorial(n):
     # Write your code here
     # Print the factorial value.
@@ -52,14 +55,16 @@ def reverseArray(n: int, nums: List[int]) -> List[int]:
 
 # Check if Palindrome
 def isPalindrome(self, s: str) -> bool:
+    # Two pointers at end, move towards each if match 
     i = 0
     j = len(s) - 1
     while i < j:
-        while i < j and not s[i].isalnum():
+        # Skipping non alphanumeric characters
+        while i < j and not s[i].isalnum(): 
             i += 1
         while i < j and not s[j].isalnum():
             j -= 1
-        if i < j and s[i].lower() != s[j].lower():
+        if i < j and s[i].lower() != s[j].lower(): # If no match, stop then
             return False
         i += 1
         j -= 1
@@ -68,13 +73,15 @@ def isPalindrome(self, s: str) -> bool:
     
     # Recursive 
     def helper(i, j):
+        # Skipping non alpha numeric characters
         while i < j and not s[i].isalnum():
             i += 1
         while i < j and not s[j].isalnum():
             j -= 1
-        if i >= j:
+        if i >= j:  # Base case, if pointers crossed then palindrome
             return True
-        return s[i].lower() == s[j].lower() and helper(i+1, j-1)
+        # And operation because each subproblem must be palindrome
+        return s[i].lower() == s[j].lower() and helper(i+1, j-1)   
     return helper(0, len(s) - 1)
     # TC - O(N), SC - O(1) [Stack space - N]
 
@@ -96,9 +103,10 @@ def fib(self, n: int) -> int:
     return res
     # TC - O(N), SC - O(1)
 
+    # TC - O(2^N) as two calls in each level, SC - O(1) [Call Stack - N]
     def helper(n):
         if n <= 1:
             return n
         return helper(n-1) + helper(n-2)
     return helper(n)
-    # TC - O(2^N) as two calls in each level, SC - O(1) [Call Stack - N]
+    
