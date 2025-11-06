@@ -101,4 +101,4 @@ def fib(self, n: int) -> int:
             return n
         return helper(n-1) + helper(n-2)
     return helper(n)
-    # TC - O(N), SC - O(1) [Call Stack - N]
+    # TC - O(2^N) as two calls in each level, SC - O(1) [Call Stack - N]
