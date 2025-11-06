@@ -8,7 +8,7 @@ def countDigits():
     while n:
         count += 1
         n = n // 10
-    return count
+    # return count
     # TC - logbase10 N, Space O(1)
 
     #Optimal - Time O(1), Space O(1) 
@@ -28,6 +28,7 @@ def reverseNumber(n):
         n = n // 10  
         place -= 1  # Modify place value for next digit
     return result
+    # TC - O(log10 n), SC - O(1)
 
 # Check if number is palindrome
 def isPalindrome():
