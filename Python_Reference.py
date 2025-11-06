@@ -234,6 +234,19 @@ strings = ["ab", "cd", "ef"]
 print("".join(strings))
 
 
+# String Functions
+"s[i]".isalnum()
+"s[i]".isalpha()
+"s[i]".isnumeric()
+"s[i]".islower()
+"s[i]".isupper()
+"s[i]".lower()
+"s[i]".upper()
+"s[i]".rstrip() # Trailing white spaces removed
+"s[i]".lstrip() # Leading white spaces removed
+"s[i]".strip()
+
+
 # Queues (double ended queue)
 from collections import deque
 
