@@ -296,6 +296,9 @@ mySet = { i for i in range(5) }
 print(mySet)
 
 
+# For defining default values for hashMap
+hashMap = defaultdict(list)
+
 # HashMap (aka dict)
 myMap = {}
 myMap["alice"] = 88
