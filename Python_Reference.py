@@ -296,8 +296,12 @@ mySet = { i for i in range(5) }
 print(mySet)
 
 
-# For defining default values for hashMap
+# For defining default list values for hashMap
 hashMap = defaultdict(list)
+
+# For defining default zero values for hashMap
+hashMap = defaultdict(int)
+
 
 # HashMap (aka dict)
 myMap = {}
