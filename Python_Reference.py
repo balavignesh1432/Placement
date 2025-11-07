@@ -219,6 +219,9 @@ print(s[0:2])
 s += "def"
 print(s)
 
+# Reversed Copy of string
+s[::-1] 
+
 # Return list of characters sorted
 sorted(s) 
 
