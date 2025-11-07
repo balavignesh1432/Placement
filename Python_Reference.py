@@ -219,6 +219,12 @@ print(s[0:2])
 s += "def"
 print(s)
 
+# Return list of characters sorted
+sorted(s) 
+
+# For sorted string
+"".join(sorted(s))
+
 # Valid numeric strings can be converted
 print(int("123") + int("123"))
 
@@ -321,6 +327,9 @@ for val in myMap.values():
 
 for key, val in myMap.items():
     print(key, val)
+
+# For list of only the values
+list(myMap.values()) 
 
 
 # Tuples are like arrays but immutable
