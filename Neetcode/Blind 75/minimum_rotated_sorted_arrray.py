@@ -19,5 +19,5 @@ def findMin(self, nums):
         if nums[m] < nums[r]: # Check if right half is sorted
             r = m   # If only right half is sorted, mid might be minimum
         else:   # If only Left half sorted, mid wont be minimum
-            l = m + 1
+            l = m + 1   # If l is mid, will not be ending as l can already be m when size 2
     return nums[l]
