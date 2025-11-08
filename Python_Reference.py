@@ -273,6 +273,8 @@ print(queue)
 queue.pop()
 print(queue)
 
+# If straight away initializing with value
+queue = deque([5])
 
 
 # HashSet
