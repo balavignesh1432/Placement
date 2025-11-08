@@ -1,14 +1,18 @@
 def hasCycle(self, head):
-    # visited = set()
-    # while head:
-    #     if head not in visited:
-    #         visited.add(head)
-    #     else:
-    #         return True
-    #     head = head.next
-    # return False
+    # Brute Force
+    # Using set to mark already visited node
+    # TC - O(N), SC = O(N)
+    visited = set()
+    while head:
+        if head not in visited:
+            visited.add(head)
+        else:
+            return True
+        head = head.next
+    return False
 
     # Tortoise and Hare Cycle Detection
+    # TC = O(N), SC = O(1)
     fast = slow = head
     while slow and fast and fast.next: 
         slow = slow.next
