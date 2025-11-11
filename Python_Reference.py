@@ -289,7 +289,7 @@ print(1 in mySet)
 print(2 in mySet)
 print(3 in mySet)
 
-
+# Remove from set 
 mySet.remove(2)
 print(2 in mySet)
 
@@ -319,7 +319,9 @@ myMap["alice"] = 80
 print(myMap["alice"])
 
 print("alice" in myMap)
+# Delete from Map
 myMap.pop("alice")
+del myMap["alice"] 
 print("alice" in myMap)
 
 myMap = { "alice": 90, "bob": 70 }
