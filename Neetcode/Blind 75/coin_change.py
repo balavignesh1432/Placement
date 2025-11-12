@@ -20,8 +20,6 @@ def coinChange(self, coins: List[int], amount: int) -> int:
         notTake = helper(index + 1, sumCoins)
         dp[index][sumCoins] = min(take, notTake)
         return dp[index][sumCoins]
-    if amount == 0:
-        return 0
     res = helper(0, 0)
     return res if res != float('inf') else -1
 
@@ -33,7 +31,7 @@ def coinChange(self, coins: List[int], amount: int) -> int:
     # Only call if coins is smaller or equal to amount left (Or return infinity)
     # Find minimum all possible coin denominations and return
     # TC: (amount * N) All denominations for each depth , SC: O(amount) # Max Depth is amount when denomination is 1
-    dp = {}
+    dp = {} # Can be 1D array or map
     def helper(left):
         if left == 0:   # If reached target amount return 0, is added 1 for the parent call
             return 0
@@ -42,9 +40,22 @@ def coinChange(self, coins: List[int], amount: int) -> int:
         # Calculate minCoins, for each possible denomination
         minCoins = float('inf')
         for coin in coins:
-            if coin <= left: # Only call if coin is less than target left
+            if coin <= left: # Only call if coin is less than target left, Or return infinity if exceeding
                 minCoins = min(minCoins, helper(left - coin) + 1)   # One to indicate one coin taken
         dp[left] = minCoins
         return dp[left]
     res = helper(amount)
+    return res if res != float('inf') else -1
+
+
+    # TC: O(N * Amount), SC: O(Amount)
+    # Iteration: Bottom Up DP
+    dp = [float('inf')] * (amount + 1)
+    dp[0] = 0
+    for left in range(1, amount + 1):
+        minCoins = float('inf')
+        for coin in coins:
+            minCoins = min(minCoins, dp[left - coin] + 1)
+        dp[left] = minCoins
+    res = dp[amount]
     return res if res != float('inf') else -1
