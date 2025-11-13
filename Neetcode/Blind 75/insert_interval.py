@@ -8,8 +8,7 @@ def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[Lis
     # Then pop the last element of res and add this overlap updated interval
     res = []
     res.append(newInterval)
-    i = 0
-    while i < len(intervals):
+    for i in range(len(intervals)):
         start, end = intervals[i][0], intervals[i][1]
         if end < res[-1][0]:    # Current interval has to come before
             last = res.pop()        
@@ -21,5 +20,4 @@ def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[Lis
             update = [min(res[-1][0], start), max(res[-1][1], end)]
             res.pop()
             res.append(update)
-        i += 1
     return res
