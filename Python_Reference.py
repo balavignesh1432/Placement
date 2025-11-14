@@ -455,3 +455,11 @@ myObj = MyClass([1, 2, 3])
 print(myObj.getLength())
 print(myObj.getDoubleLength())
 
+# In Python, everything is passed by object reference, 
+# But whether the caller sees a change depends on whether the object is mutable or immutable.
+
+# Mutable Objects:
+# List, HashMap, Set, Class Objects
+
+# Immutable Objects: 
+# Int, Float, String, Bool
