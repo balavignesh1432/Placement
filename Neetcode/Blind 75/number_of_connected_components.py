@@ -40,14 +40,16 @@ def countComponents(self, n: int, edges: List[List[int]]) -> int:
     return components
 
     # Using Disjoint Set, Union Find
-    # Perform Union of nodes in each edge
-    # Then perform path compression for each node
+    # Perform Union of nodes in each edge, If not same parent, then union is performed
+    # When union is performed, components are reduced by 1, as initially there are n components
+    # Or perform path compression for each node
     # Now, number of unique roots in the list will give the number of components
     # Or the number of nodes, whose parent is itself is also unique root
     # TC: O(V + E) For each edge E Union performed at O(1), For each node N, path compression, O(1) amortized
     # SC: O(V) Only for parent, size lists, No need for adjacency list
     parent = [i for i in range(n)]
     size = [1 for _ in range(n)]
+    components = n
     def findParent(node):
         if parent[node] == node:
             return node
@@ -58,6 +60,8 @@ def countComponents(self, n: int, edges: List[List[int]]) -> int:
         pu, pv = findParent(u), findParent(v) 
         if pu == pv:
             return
+        nonlocal components
+        components -= 1
         if size[pu] <= size[pv]:
             parent[pu] = pv
             size[pv] += size[pu]
@@ -68,7 +72,9 @@ def countComponents(self, n: int, edges: List[List[int]]) -> int:
     for edge in edges:
         unionBySize(edge[0], edge[1])
     
-    
+    return components
+
+    # Or Perform Path Compression For all
     for node in range(n):
         findParent(node)
     # Count unique roots
