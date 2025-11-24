@@ -1,6 +1,7 @@
 def setZeroes(self, matrix: List[List[int]]) -> None:
         
-        # Use separate memory for storing positions in 1st run. (Can use set also)
+        # Brute Force: Use separate memory for storing positions in 1st run. (Can use set also)
+        # TC - O(M*N), SC - O(M + N)
         rows = [0] * len(matrix)
         cols = [0] * len(matrix[0])
         for i in range(len(matrix)):
@@ -15,7 +16,7 @@ def setZeroes(self, matrix: List[List[int]]) -> None:
                 if rows[i] == 0 or cols[j] == 0:   #Check if the row, or col needs to be zero
                     matrix[i][j] = 0
 
-        # TC - O(M*N), SC - O(M + N)
+        
         
         # Optimal SC, Intuition using 1st row/col itself as a marker
         # To store marker if first col needs to be zeroed
