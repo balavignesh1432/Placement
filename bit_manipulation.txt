@@ -1,0 +1,27 @@
+# >> - Right Shift Operator,
+# << - left Shift Operator
+# & Bitwise And
+# | Bitwise or
+# ^ Bitwise xor
+# ~ Bitwise Not
+# For many scenarios for manipulating ith bit, Left Shift 1 by i places.
+# Then perfroming and, or, xor
+
+# Useful scenarios
+
+a ^ a = 0   # Any number xor with itself is 0. (Will always be even 1s)
+a & a = a, # Bitwise and of any number with itself will be itself
+a | 1 = 1, # Bitwise OR with 1 always results 1
+a ^ 1 = Flip bit of a, if a is 1, then becomes 0, if a is 0, becomes 1
+a ^ 0 or a | 0 = Preserve bits
+a & 1 = a, # Any number and with itself is itself, checking if bit is 1 or not
+
+if n is 1 1 0 1 0 0, then n - 1 will be just making the rightmost 1 as 0, and rest to the right of it as 1.
+So n & n - 1, will make right most set bit as 0 
+This can be used to manipulate set bits from right side, Not performing for n times,
+But only performing for times of set bits
+
+>> is basically dividing by 2,
+<< is bascially multiplying by 2,
+So if performed n times, then complexity is log 2 (n)
+If n is 32 bit integer, then 32 times, because it will become 0 if performed division by 2, 32 times 
