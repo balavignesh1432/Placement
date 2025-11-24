@@ -1,3 +1,6 @@
+# FOR MST this is enough to remember
+# Works on disconnected Components as well as connected graph
+# Faster when graph is sparse
 from heapq import heappush, heappop, heapify
 # Construct MST using Union Find, taking minimum weight edge everytime
 # Put edges into heap, then until heap is empty, pop edges from it

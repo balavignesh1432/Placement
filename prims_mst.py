@@ -1,3 +1,5 @@
+# Only works on connected graph, not on disconnected components
+# Preferred when graph is dense
 from heapq import heappush, heappop
 class Solution:
     # Idea: Start from 0th vertex, add to heap with weight 0, node 0, parent as -1
@@ -25,11 +27,11 @@ class Solution:
         mst = set()
         while len(heap) > 0:
             wt, node, parent = heappop(heap) 
-            if visited[node]:   # Important Only Continue with algo, if not visited
+            if visited[node]:   # Node has to be outside MST to include the edge
                 continue
             mst_sum += wt
             mst.add((parent, node))
-            visited[node] = 1
+            visited[node] = 1   # Node is added to MST
             for neigh, weight in adj[node]:
                 if not visited[neigh]:
                     heappush(heap, [weight, neigh, node])
