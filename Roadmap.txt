@@ -1,0 +1,11 @@
+DSA:
+Grind/Blind 75/Sean Prasad
+
+SQL:
+Leetcode SQL 50 - SQL
+
+System Design:
+Concepts: Neetcode/TUF/Gaurav Sen/Hello Interview
+
+Interview Questions:
+Interview Bit = DSA/ OOPS/ OS/ AWS

@@ -438,7 +438,7 @@ double(nums, val)
 
 #Class definition
 class MyClass:
-    # Constructor
+    # Constructor, No return allowed
     def __init__(self, nums):
         # Create member variables
         self.nums = nums

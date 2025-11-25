@@ -31,7 +31,8 @@ class minHeap:
         index = 1
         child1 = (2 * index)
         child2 = (2 * index) + 1
-        while (child1 < len(self.heap) and self.heap[index] > self.heap[child1]) or (child2 < len(self.heap) and self.heap[index] > self.heap[child2]):
+        while ((child1 < len(self.heap) and self.heap[index] > self.heap[child1]) 
+            or (child2 < len(self.heap) and self.heap[index] > self.heap[child2])):
             if child2 >= len(self.heap) or self.heap[child1] < self.heap[child2]:   # If only left child or it is smaller one
                 self.heap[index], self.heap[child1] = self.heap[child1], self.heap[index]
                 index = child1  # Update index
