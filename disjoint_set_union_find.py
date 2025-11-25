@@ -1,4 +1,4 @@
-# For Dynamic Graphs, building from scratch, find can be used any time
+# For Dynamic Graphs, building from scratch, find can be used at any time
 # Can be used for cycle detection in undirected graph, number of components in undirected graph
 # Without this, you have to use DFS to check if two nodes belong to same set, which will take O(V + E)
 # But with this DS, it can be performed with O(1) amortized TC
