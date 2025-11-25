@@ -1,5 +1,5 @@
 # Only works on connected graph, not on disconnected components
-# Preferred when graph is dense
+# Preferred when graph is dense (E ≈ V²)
 from heapq import heappush, heappop
 class Solution:
     # Idea: Start from 0th vertex, add to heap with weight 0, node 0, parent as -1
@@ -11,7 +11,9 @@ class Solution:
     # Finally return sum which is minimum sum, and remove -1, 0 from mst set, this set contains mst edges
     # TC: O(E log E), SC: O(V + E)
     # Heap can run for all edges, so E and for pop log E
-    # Other E log E is, iterating through edges totally runs for E, and heappush is log E
+    # Other E log E is, iterating through edges totally runs for E, and heappush is log E,
+    # Since, E can be at worst V^2 for complete graph, log E = log V^2 = 2 log V
+    # So Total TC: O(E log V), SC: O(V + E)
     def spanningTree(self, V, edges):
         heap = []
         adj = [[] for _ in range(V)]

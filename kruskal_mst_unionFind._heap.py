@@ -1,13 +1,15 @@
 # FOR MST this is enough to remember
 # Works on disconnected Components as well as connected graph
-# Faster when graph is sparse
+# Faster when graph is sparse (E ≈ V)
 from heapq import heappush, heappop, heapify
 # Construct MST using Union Find, taking minimum weight edge everytime
 # Put edges into heap, then until heap is empty, pop edges from it
 # Get two nodes, if both have same parent do not proceed
 # Otherwise, add the weight to sum, and the nodes of edge into mst list
-# TC: O(V + E log E), SC: O(E + V)
-# V for constructing Disjoint Set, E log E for getting edges in sorted order
+# TC: O(E log E), SC: O(E + V)
+# E for constructing Disjoint Set, E log E for getting edges in sorted order, log E for heap operations
+# Since, E can be at worst V^2 for complete graph, log E = log V^2 = 2 log V
+# So Total TC: O(E log V), SC: O(V + E)
 class UnionFind:
     def __init__(self, n):
         self.parent = [node for node in range(n)]
