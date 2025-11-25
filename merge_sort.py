@@ -1,6 +1,10 @@
-#Merge Sort - O(N*log N) - Space O(N) - Stable
-#Height of tree is log N, and at a level worst case merge takes N.
+#Merge Sort - O(N * log N) - Space O(N) - Stable
+# Needs auxillary memory for merge, Merge not done in place
+# Height of tree is log N, and at a level worst case merge takes N.
 nums = [5,1,1,2,0,0]
+
+# Use this Case for Stability Check
+# nums = [(3, 'A'), (3, 'B'), (2, 'C')]
 
 # Just using indices for recursion and partitioning
 def mergeSort(start, end):
@@ -10,7 +14,7 @@ def mergeSort(start, end):
     # Split Point Logic
     mid = (start + end) // 2 
     
-    # Partition Logic - Array is returned
+    # Partition Logic, works for length 2 without out of bounds call- Array is returned
     left = mergeSort(start, mid)       
     right = mergeSort(mid + 1, end)
 
@@ -21,7 +25,7 @@ def mergeSort(start, end):
     i = 0
     j = 0
     while i < len(left) and j < len(right):
-        if left[i] <= right[j]:
+        if left[i] <= right[j]:         # <= Ensures Stability
             result.append(left[i])        
             i += 1
         else:

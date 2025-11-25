@@ -1,9 +1,19 @@
 nums = [5,1,1,2,0,0]
+# Use this Case for Stability Check
+# nums = [(3, 'A'), (3, 'B'), (2, 'C')]
 
 # Intuition is finding the correct position for pivot element
 # Elements to left of pivot is smaller, right of it is bigger
 # Pick any element(first, last, middle, random) as pivot
 # Finding the place for it can be achieved through two pointers from ends
+# Finding first position that is bigger than pivot from left
+# Finding first position that is smaller than pivot from right
+
+# Time Complexity - O(NlogN) - Average and Best; O(N^2) - Worst
+# Not a Stable sorting algorithm
+# Height of tree can be N, when already sorted or reverse, 
+# Then partition will not be two halves [One element, and Rest of array].
+# Space Complexity - O(1) In Place (Ignoring Call Stack), Average - O(log N), Worst - O(N)
 
 def quickSort(start, end):
     # Only if valid window and size is atleast 2
@@ -27,17 +37,10 @@ def quickSort(start, end):
         # j pointer points to position where pivot has to be placed
         nums[start], nums[j] = nums[j], nums[start]
         
-        # Now Fix other two partitions
+        # Now Fix other two partitions, Nothing is return as sorting is performed on the input itself. In Place
         quickSort(start, j - 1)
         quickSort(j + 1, end)
-        
-        # Nothing is return as sorting is performed on the input itself. In Place.
-        return
 
 quickSort(0, len(nums) - 1)
 print(nums)
 
-# Time Complexity - O(NlogN) - Average and Best; O(N^2) - Worst
-# Height of tree can be N, when already sorted or reverse, 
-# then partition will not be two halves [One element, and Rest of array].
-# Space Complexity - O(1) In Place (Ignoring Call Stack)
