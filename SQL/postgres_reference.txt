@@ -1,0 +1,167 @@
+SQL keywords are case insensitive
+Semicolons are used to separate two or more SQL statements.
+
+SELECT:
+* in the SELECT clause, which serves as a shorthand for all columns.
+The SELECT statement has the following clauses:
+Select distinct rows using DISTINCT operator.
+Sort rows using ORDER BY clause.
+Filter rows using WHERE clause.
+Select a subset of rows from a table using LIMIT or FETCH clause.
+Group rows into groups using GROUP BY clause.
+Filter groups using HAVING clause.
+Join with other tables using joins such as INNER JOIN, LEFT JOIN, FULL OUTER JOIN, CROSS JOIN clauses.
+Perform set operations using UNION, INTERSECT, and EXCEPT.
+
+The select list may also contain expressions or literal values.
+The FROM clause is optional. If you are not querying data from any table, you can omit the FROM clause in the SELECT statement.
+PostgreSQL evaluates the FROM clause before the SELECT clause in the SELECT statement
+
+
+
+Concatenation operator || to concatenate the first name, space, and last name.
+SELECT
+   first_name || ' ' || last_name,
+   email
+FROM
+   customer;
+
+Column Alias:
+To assign a name to a column temporarily in the query, you can use a column alias:
+column_name  AS column_alias
+If a column alias contains one or more spaces, you need to surround it with double quotes like this:
+column_name AS "column alias"
+
+
+ORDER BY:
+If you want to sort the result set based on multiple columns or expressions, 
+you need to place a comma (,) between two columns or expressions to separate them. 
+If match goes to next to resolve
+Second, you use the ASC option to sort rows in ascending order 
+and the DESC option to sort rows in descending order. 
+
+Due to the order of evaluation, if you have a column alias in the SELECT clause, 
+you can use it in the ORDER BY clause.
+
+ORDER BY
+  sort_expression1 [ASC | DESC],
+  sort_expression2 [ASC | DESC],
+
+You can specify the order of NULL with other non-null values,
+by using the NULLS FIRST or NULLS LAST option of the ORDER BY clause
+the ORDER BY clause uses the NULLS LAST option by default
+ORDER BY sort_expresssion [ASC | DESC] [NULLS FIRST | NULLS LAST]
+
+
+The LENGTH() function accepts a string and returns the length of that string.
+
+DISTINCT:
+The SELECT DISTINCT removes duplicate rows from a result set. 
+The SELECT DISTINCT clause retains one row for each group of duplicates.
+If you specify multiple columns, the SELECT DISTINCT clause will 
+evaluate the duplicate based on the combination of values in these columns. For example:
+SELECT  DISTINCT column1, column2
+
+WHERE:
+You place the WHERE clause right after the FROM clause of the SELECT statement.
+The WHERE clause uses the condition to filter the rows returned from the SELECT clause.
+The condition is a boolean expression that evaluates to true, false, or unknown.
+PostgreSQL evaluates the WHERE clause after the FROM clause but before the SELECT and ORDER BY clause:
+FROM -> WHERE -> SELECT -> ORDER BY
+So, if you use column aliases in the SELECT clause, you cannot use them in the WHERE clause.
+
+Boolean value can have one of three values: true, false, and null.
+true, 't', 'true', 'y', 'yes', '1' to represent true  
+false, 'f', 'false', 'n', 'no', and '0' to represent false.
+
+Operators
+=	    Equal
+>	    Greater than
+<	    Less than
+>=	    Greater than or equal
+<=	    Less than or equal
+<>      Not equal
+AND	    Logical operator AND
+OR	    Logical operator OR
+IN	    Return true if a value matches any value in a list
+BETWEEN	Return true if a value is between a range of values
+LIKE	Return true if a value matches a pattern (Case Sensitive)
+ILIKE	Check if a value matches a pattern (case insensitive)
+IS NULL	Return true if a value is NULL
+NOT	    Negate the result of other operators
+
+EX:
+WHERE first_name IN ('Ann', 'Anne', 'Annie');
+WHERE last_name = 'Rodriguez' OR first_name = 'Adam';
+WHERE first_name LIKE 'Ann%';
+WHERE LENGTH(first_name) BETWEEN 3 AND 5;
+WHERE last_name <> 'Motley';
+
+AND:
+true AND null is null
+false AND null is false
+
+OR:
+false OR null is null
+true OR null is true
+
+LIMIT:  
+Constrains the number of rows returned by the query.
+SELECT select_list
+FROM table_name
+ORDER BY sort_expression
+LIMIT row_count;
+
+If the row count is zero, the query returns an empty set. 
+If the row count is NULL, the query returns the same result set as it does not have the LIMIT clause.
+
+Skip a number of rows before returning the row_count rows, 
+you can use OFFSET clause placed after the LIMIT clause
+
+LIMIT row_count
+OFFSET row_to_skip;
+
+If the row_to_skip is zero, the statement will work like it doesn’t have the OFFSET clause.
+It’s important to note that PostgreSQL evaluates the OFFSET clause before the LIMIT clause.
+
+When you use the LIMIT clause, you should always use the ORDER BY clause to control the row order.
+If you don’t use the ORDER BY clause, you may get a result set with the rows in an unspecified order.
+
+IN:
+The query that uses the IN operator is shorter, faster than the query that uses equal (=) and OR operators.
+value IN (value1,value2,...)
+value NOT IN (value1, value2, ...)
+
+:: cast operator, payment_date::date, payment_date column has the type timestamp that consists of both date and time parts.
+
+BETWEEN:
+If the value is greater than or equal to the low value and less than or equal to the high value, 
+the BETWEEN operator returns true; otherwise, it returns false.
+
+value BETWEEN low AND high;
+value NOT BETWEEN low AND high
+
+SELECT customer_id,
+FROM payment
+WHERE payment_date BETWEEN '2007-02-15' AND '2007-02-20'
+
+LIKE:
+value LIKE pattern
+value NOT LIKE pattern
+
+Percent sign (%) matches any sequence of zero or more characters.
+Underscore sign (_)  matches any single character.
+
+LIKE '%contain%'
+LIKE 'start%'
+LIKE '%end'
+first_name LIKE '_her%'
+
+IS NULL: 
+The comparison of NULL with a value will always result in NULL
+null = null, will return null, can not use = to check null,
+
+value IS NULL
+value IS NOT NULL
+
+Empty is not treated as null
