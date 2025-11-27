@@ -51,4 +51,3 @@ def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -
             node = node.left
         else:   # When both on other side, or when one is equal to node value itself
             return node
-    return node 
