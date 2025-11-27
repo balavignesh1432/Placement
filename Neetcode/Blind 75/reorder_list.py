@@ -24,6 +24,9 @@ def reorderList(self, head: Optional[ListNode]) -> None:
         
         # Intuition: Merging 1st half and reversed 2nd half results in reordered list
         # Since reversing can be done in place, and does not need recursion for extra space
+        # Find mid point, using fast and slow pointers
+        # Mark end of first half, and reverse second half
+        # Since odd length, results in one larger than other, handle that case when merging
         # This method can be used when needed to iterate back in linked list.
         # Since only one half of LL needs to be reversed, 
         # no extra space is needed for solving, first half remains intact
