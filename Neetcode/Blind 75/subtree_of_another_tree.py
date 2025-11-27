@@ -31,8 +31,6 @@ def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bo
     # Perform Traversal, and serialize to list or string
     # TC = O(N*M) can be O(M+N) if used algo like KMP, Rabin Karp, Z
     # SC = O(M+N)
-    inorderRoot = []
-    inorderSubRoot = []
     def dfs(node, option):
         if not node:
             option.append(None)
