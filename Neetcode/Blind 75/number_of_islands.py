@@ -33,7 +33,7 @@ def numIslands(self, grid: List[List[str]]) -> int:
     islands = 0
     for i in range(len(grid)):
         for j in range(len(grid[0])):
-            if grid[i][j] == "1":
-                bfs(i, j)
+            if grid[i][j] == "1" and (i , j) not in visited:
+                bfs(i, j) # Or dfs(i, j)
                 islands += 1
     return islands
