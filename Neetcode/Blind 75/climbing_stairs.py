@@ -5,6 +5,7 @@ def climbStairs(self, n: int) -> int:
     # Just store this values in 1D dp array, check if already exist for that index
     # where dp[index] has number of ways to reach end for index stairs
     # So use negative numbers to check for already computed, if not computed, then compute and update dp.
+    # TC = O(N), SC: O(N)
     dp = [-1] * (n + 1)
     def helper(level):
         if level == 0:
@@ -16,7 +17,7 @@ def climbStairs(self, n: int) -> int:
         return dp[level]
     return helper(n)
 
-    # Bottom Up DP Iteration: TC = O(N), SC: O(1)
+    # Bottom Up DP Iteration: TC = O(N), SC: O(N)
     # Since two values are needed in Top Down. Start from bottom with those two values
     # Fill all values of dp array from 3rd index by adding previous 2. As 1 and 2 are already filled
     # return nth index of dp array
