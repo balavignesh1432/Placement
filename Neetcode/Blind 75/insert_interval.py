@@ -1,5 +1,5 @@
 def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
-    # TC: O(N), SC: O(1) only for storing result N
+    # TC: O(N), SC: O(N) only for storing result N
     # Intuition keep comparing last interval of result and current interval of list
     # So, Add newInterval to result initially
     # If current interval is totally above last interval just add current to result

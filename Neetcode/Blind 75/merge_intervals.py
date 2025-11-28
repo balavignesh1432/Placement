@@ -1,5 +1,5 @@
 def merge(self, intervals: List[List[int]]) -> List[List[int]]:
-    # TC: O(N), SC: O(1) only for storing result N
+    # TC: O(N log N), SC: O(N) only for storing result N
     # Intuition if sorted intervals, keep comparing last interval of result and current interval of list
     # Initially sort and add first interval to result
     # If current interval is totally above last interval just add current to result
