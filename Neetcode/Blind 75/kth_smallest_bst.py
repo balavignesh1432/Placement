@@ -1,4 +1,17 @@
 def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+    # Perform Inorder Traversal
+    # Add to list, has elements in sorted order
+    # Return kth smallest
+    # TC: O(N), SC: O(N), For call Stack and inorder list
+    inorder = []
+    def dfs(node):
+        if node:
+            dfs(node.left)
+            inorder.append(node.val)
+            dfs(node.right)
+    dfs(root)
+    return inorder[k-1]
+
     # Recursive DFS: Since inorder Traversal of BST result in ascending Order
     # Go left until not possible, then reduce k by 1
     # Then go right.
