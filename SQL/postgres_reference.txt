@@ -17,7 +17,7 @@ The select list may also contain expressions or literal values.
 The FROM clause is optional. If you are not querying data from any table, you can omit the FROM clause in the SELECT statement.
 PostgreSQL evaluates the FROM clause before the SELECT clause in the SELECT statement
 
-
+ORDER: FROM -> WHERE -> GROUP BY -> HAVING -> SELECT -> DISTINCT -> ORDER BY -> LIMIT
 
 Concatenation operator || to concatenate the first name, space, and last name.
 SELECT
@@ -165,3 +165,71 @@ value IS NULL
 value IS NOT NULL
 
 Empty is not treated as null
+
+
+JOIN or INNER JOIN:
+If these values are equal, the inner join creates a new row that contains columns from both tables 
+and adds this new row to the result set. Can be applied to more than two tables.
+
+SELECT *
+FROM basket_a INNER JOIN basket_b
+ON fruit_a = fruit_b;
+or If same Column Name, use . to access column 
+ON basket_a.id = basket_b.id
+
+LEFT JOIN or LEFT OUTER JOIN:
+FROM basket_a LEFT JOIN basket_b
+ON fruit_a = fruit_b;
+
+The left join starts selecting data from the left table. 
+If these values are equal, the left join creates a new row that contains columns of both tables 
+and adds this new row to the result set. (see the row #1 and #2 in the result set).
+
+In case the values do not equal, the left join also 
+creates a new row that contains columns from both tables and adds it to the result set. 
+However, it fills the columns of the right table (basket_b) with null
+
+For Left Anti-Join: use left join and WHERE b.id IS NULL to list only rows in A that is not common
+
+RIGHT JOIN: 
+RIGHT JOIN basket_b ON fruit_a = fruit_b;
+In case these values are not equal, the right join also creates a new row that contains columns from both tables. 
+However, it fills the columns in the left table with NULL.
+
+FULL JOIN or FULL OUTER JOIN:
+The full outer join or full join returns a result set that contains all rows from both left and right tables, 
+with the matching rows from both sides if available. 
+In case there is no match, the columns of the table will be filled with NULL.
+
+Table Aliases: useful shorthand when joining
+table_name AS alias_name
+
+If same column name, then can use USING()
+a INNER JOIN b USING(customer_id)
+
+SELF JOIN: 
+A self-join is a regular join that joins a table to itself. 
+In practice, you typically use a self-join to query hierarchical data or to compare rows within the same table.
+
+To form a self-join, you specify the same table twice with different table aliases and 
+provide the join predicate after the ON keyword.
+
+Use INNER JOIN or LEFT JOIN or RIGHT JOIN, to self join, depeding on need
+FROM table_name t1 INNER JOIN table_name t2 ON join_predicate;
+
+finds all pairs of films that have the same length,
+film f1 INNER JOIN film f2 
+ON f1.film_id > f2.film_id AND f1.length = f2.length;
+
+CROSS JOIN:
+FROM table1 CROSS JOIN table2;
+the CROSS JOIN clause does not have a join predicate.
+you can use an INNER JOIN clause with a condition that always evaluates to true to simulate a cross-join
+
+NATURAL JOIN:
+The convenience of the NATURAL JOIN is that it does not require you to specify the condition in the join clause 
+because it uses an implicit condition based on the equality of the common columns
+A natural join can be an inner join, left join, or right join. 
+If you do not specify an explicit join, PostgreSQL will use the INNER JOIN by default.
+
+NATURAL [INNER, LEFT, RIGHT] JOIN table2;
