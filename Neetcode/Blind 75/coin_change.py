@@ -1,5 +1,5 @@
 def coinChange(self, coins: List[int], amount: int) -> int:
-    # TC: O(N * amount), SC: O(N * amount)
+    # TC: O(N * amount) with DP without (2 ^ amount/min), SC: O(N * amount)
     # At each step, either to take or not take the denomination
     # If taking, call with same index and sum added
     # If not taking denomination, call with next index, without changing sum so far
