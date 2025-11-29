@@ -17,7 +17,7 @@ def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNod
     prev.next = slow.next
     return head
     
-    # Recursion - TC O(N), SC = O(1)
+    # Recursion - TC O(N), SC = O(N)
     # Just recurse until end, come back while decrementing n as counter
     # If node has to be removed, return next of it, otherwise return itself
     def helper(node):
