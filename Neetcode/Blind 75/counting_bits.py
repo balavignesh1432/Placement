@@ -12,8 +12,8 @@ def countBits(self, n: int) -> List[int]:
     return res
 
     # DP: Using Observation
-    # 00
-    # 01
+    # 0
+    # 1
     # 10    Basically add 1 to left of 0
     # 11    Basically add 1 to left of 1
     # 100   Basically add 1 to left of 0

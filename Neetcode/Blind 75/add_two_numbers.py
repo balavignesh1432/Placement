@@ -8,7 +8,7 @@ class Solution:
     # If results exceeds max possible positive integer, then number must be negative, so 2s complement needed.
     # Max positive integer is 2^32 - 1, which is represented as 0x7FFFFFFF (F is 8 1111, 7 is 0111)
     # If so, flip the bits, (XOR with 32 1s which is 0xFFFFFFFF)
-    # ~x means -(x + 1), if x is positive, increments x puts -, if x is negative, adds 1, then puts -1
+    # ~x means -(x + 1), Add 1 and negate
     # ~3 is -4, ~-4 is 3 
     # Flipping gives the complement of negative number in positive, now have to get negative complement using ~
     def getSum(self, a: int, b: int) -> int:

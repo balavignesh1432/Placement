@@ -3,7 +3,7 @@ def reverseBits(self, n: int) -> int:
     # Move n to right, move res to left taking each bit,
     # Last bit using & with 1, 
     # For storing, last bit, using or operator with 0, and shift by left to store it
-    # Can not run for log n times, as 0 bits are also needed, so complete shift is needed
+    # Can not run for log n times, always log 2^32, as 0 bits are also needed, so complete shift is needed
     # At last shift res right by 1, to undo last shift which was needed to store bit coming in next iteration
     # Since it is last iteration, there wont be next bit
     # TC: O(32), SC: O(1)

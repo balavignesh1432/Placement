@@ -8,13 +8,13 @@ def missingNumber(self, nums: List[int]) -> int:
             return i
 
     # Bit Manipulation: 
-    # Intuition: Since any number xor with itself is 0,
+    # Intuition: Since any number xor with itself is 0, and with 0 is number itself
     # XOR each number with index, Each number will cancel to 0, when its equivalent index is xor somewhere
     # Leaving only the missing number behind
     # Since have to check for [0, n], and nums final index is only n - 1, finally xor with n
     # TC: O(N), SC: O(1) 
-    res = nums[0] ^ 0
+    res = 0
     n = len(nums)
-    for i in range(1, n):
+    for i in range(n):
         res = res ^ (nums[i] ^ i)
     return res ^ n
