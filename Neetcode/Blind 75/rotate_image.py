@@ -4,6 +4,7 @@ def rotate(self, matrix: List[List[int]]) -> None:
     # Then move the four pointers clockwise for every window size
     # Update the window size [Outer box to innner Box]
     # Until valid window size, perform this
+    # TC: O(N*2), SC: O(1)
     low = 0
     high = len(matrix) - 1
     while low < high:
@@ -20,7 +21,7 @@ def rotate(self, matrix: List[List[int]]) -> None:
     # But since transposing last row as first column can not be done in place, 
     # But Transposing first row and first col can be done in place
     # So reverse the order of rows, and then transpose in place
-    # TC: O(N*2), SC: O(!)
+    # TC: O(N*2), SC: O(1)
     matrix.reverse()
     # Transposing matrix, row <-> Swap
     for i in range(len(matrix)):
