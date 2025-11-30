@@ -17,14 +17,13 @@ def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
         if pos == len(words[word]):
             res.append(words[word])
             return True
-        if row < 0 or col < 0 or row >= len(board) or col >= len(board[0]) or (row, col) in path:
+        if row < 0 or col < 0 or row >= len(board) or col >= len(board[0]) or (row, col) in path or words[word][pos] != board[row][col]:
             return False
         path.add((row, col))
-        if words[word][pos] == board[row][col]:
-            for rd, cd in directions:
-                if dfs(row + rd, col + cd, word, pos + 1):
-                    path.remove((row, col))
-                    return True
+        for rd, cd in directions:
+            if dfs(row + rd, col + cd, word, pos + 1):
+                path.remove((row, col))
+                return True
         path.remove((row, col))
         return False
     for i in range(len(board)):
