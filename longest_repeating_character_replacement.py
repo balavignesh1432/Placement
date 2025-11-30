@@ -21,12 +21,12 @@ def characterReplacement(self, s: str, k: int) -> int:
     # If this exceeds K, keep moving left, and updating count until the condition is satisfied
     # Calculate max Length that is length of the window once valid.
     # For count use Map, or Freq array since only 26 characters
-    # TC: O(26 * N), SC: O(26)
+    # TC: O(26 * N * 26), SC: O(26)
     i = 0
     j = 0
     count = [0] * 26
     maxLen = maxCount = 0
-    while j < len(s):
+    for j in range(len(s)):
         index = ord(s[j]) - ord("A")
         count[index] += 1
         maxCount = max(count)
@@ -36,7 +36,6 @@ def characterReplacement(self, s: str, k: int) -> int:
             maxCount = max(count)
             i += 1
         maxLen = max(maxLen, (j - i) + 1)
-        j += 1
     return maxLen
 
 
@@ -49,7 +48,7 @@ def characterReplacement(self, s: str, k: int) -> int:
     j = 0
     count = [0] * 26
     maxLen = maxCount = 0
-    while j < len(s):
+    for j in range(len(s)):
         index = ord(s[j]) - ord("A")
         count[index] += 1
         maxCount = max(maxCount, count[index])
@@ -58,5 +57,4 @@ def characterReplacement(self, s: str, k: int) -> int:
             count[index] -= 1
             i += 1
         maxLen = max(maxLen, (j - i) + 1)
-        j += 1
     return maxLen
