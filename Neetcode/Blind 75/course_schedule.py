@@ -45,11 +45,12 @@ def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
             q.append(vertex)
     visited = 0
     while q:
-        vertex = q.popleft()
-        visited += 1
-        for neigh in adjList[vertex]:
-            indeg[neigh] -= 1
-            if indeg[neigh] == 0:
-                q.append(neigh) 
+        for _ in range(len(q)):
+            vertex = q.popleft()
+            visited += 1
+            for neigh in adjList[vertex]:
+                indeg[neigh] -= 1
+                if indeg[neigh] == 0:
+                    q.append(neigh) 
     return numCourses == visited
         
