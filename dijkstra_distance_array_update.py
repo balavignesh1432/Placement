@@ -23,7 +23,7 @@ class Solution:
             adj[edge[1]].append([edge[0], edge[2]])
         while len(heap):
             du, u = heappop(heap)
-            if du < dist[u]:
+            if du > dist[u]:
                 continue
             for v, dv in adj[u]:
                 if du + dv < dist[v]:
