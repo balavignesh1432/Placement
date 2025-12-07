@@ -83,7 +83,7 @@ Avoid cross-shard queries whenever possible.
 ## Ex: Database (Postgres)
 
 **Posts**
-- postId (pk)
+- postId (pk, shard)
 - userId (fk, index)
 - content
 - mediaUrls
@@ -97,7 +97,7 @@ Avoid cross-shard queries whenever possible.
 
 **Comments**
 - commentId (pk)
-- postId (fk, index)
+- postId (fk, index, shard)
 - userId (fk, index)
 - content 
 - createdAt (index)
