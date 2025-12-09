@@ -28,7 +28,7 @@ def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
     monotonic = deque()
     result = []
     for i in range(len(nums)):
-        if monotonic and i - k == monotonic[0][1]:
+        if monotonic and i - monotonic[0][1] >= k:
             monotonic.popleft()
         while monotonic and nums[i] >= monotonic[-1][0]:
             monotonic.pop()
