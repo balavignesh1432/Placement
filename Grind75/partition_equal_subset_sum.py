@@ -7,7 +7,7 @@ def canPartition(self, nums: List[int]) -> bool:
     # If take add to subsum
     # Base case: If subsum is target, then return True
     # If out of bounds return False
-    # TC: O(N ^ 2), SC: O(N ^ 2)
+    # TC: O(N * T), SC: O(N * T)
 
     target = sum(nums)
     if target & 1:      # Check odd
@@ -32,7 +32,7 @@ def canPartition(self, nums: List[int]) -> bool:
     return helper(0, 0)
     
     # DP Tabulation
-    # TC: O(N ^ 2), SC: O(N ^ 2)
+    # TC: O(N * T), SC: O(N * T)
     dp = [[False] * (target + 1) for _ in range(len(nums) + 1)]
     for index in range(len(nums) + 1):
         dp[index][target] = True
@@ -47,7 +47,7 @@ def canPartition(self, nums: List[int]) -> bool:
     return dp[0][0]
 
     # DP Space Optimized
-    # TC: O(N ^ 2), SC: O(N)
+    # TC: O(N * T), SC: O(T)
     curr = [False] * (target + 1)
     dp = [False] * (target + 1)
     dp[target] = True
