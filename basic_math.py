@@ -69,6 +69,10 @@ def calcGCD(n:int, m: int) -> int:
     # TC = O (log min(m, n)) - Since repeated divisions, in log. Height depends on min of m,n.
     # SC = O (1)
 
+
+def lcm(a, b):
+    return (a * b) // gcd(a, b)
+
 # Print all Divisors
 def printDivisors(n: int) -> List[int]:
     # Trying every divisor until half    
