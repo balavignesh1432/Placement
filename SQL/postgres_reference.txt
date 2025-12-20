@@ -19,6 +19,10 @@ PostgreSQL evaluates the FROM clause before the SELECT clause in the SELECT stat
 
 ORDER: FROM -> WHERE -> GROUP BY -> HAVING -> SELECT -> DISTINCT -> ORDER BY -> LIMIT
 
+IMP:
+Every selected column must be either: in the GROUP BY, or inside an aggregate function (AVG, COUNT, SUM, etc.)
+Be careful when using * along with GROUP BY. Only select what you need.
+
 Concatenation operator || to concatenate the first name, space, and last name.
 SELECT
    first_name || ' ' || last_name,
@@ -233,3 +237,46 @@ A natural join can be an inner join, left join, or right join.
 If you do not specify an explicit join, PostgreSQL will use the INNER JOIN by default.
 
 NATURAL [INNER, LEFT, RIGHT] JOIN table2;
+
+Data Types:
+INTEGER - typical choice for integer (2^32 - 1)
+BIGINT - 8 Bytes (2^64 - 1)
+NUMERIC - up to 131072 digits before the decimal point; up to 16383 digits after the decimal point
+DOUBLE PRECISION - 15 decimal digits precision
+VARCHAT(n) - Variable length with limit
+CHAR(n) - Fixed Length with limit
+TEXT() - Variable length without limit (Common)
+BOOLEAN - true, false, null (Common)
+DATE - Date
+TIME - Only Time
+TIMESTAMP - Date + time
+TIMESTAMPTZ - Date + Time + Time Zone (Common)
+
+Arithmetic Operators:
++, -, *, /, %
+
+/ - Perform division based on operand type
+
+Bitwise:
+<<, >>, &, |, #(XOR)
+
+MATH FUNCTIONS:
+ABS()
+CEIL()
+FLOOR()
+POWER()
+SQRT()
+ROUND(num, [precision])   Rounds to nearest integer. Default no decimal places. Has to be numeric not double.
+TRUNC(num, [precision])   Truncates digits to the right of the decimal point. Or left if num is negative.
+
+So type cast (::) to numeric
+num::numeric
+
+Aggregate Functions: 
+MAX()
+MIN()
+SUM()
+COUNT()
+AVG()
+
+COALESCE(val, 0) - Use replace null value with default value
