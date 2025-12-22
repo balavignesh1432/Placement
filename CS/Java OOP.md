@@ -32,6 +32,9 @@
     - `public Person(Person another) { this(another.name, another.age); }`
     - Usage: `Person b = new Person(a);` (deep copy when implemented accordingly).
 
+## No Destructor
+- In Java, the garbage collector automatically deletes the useless objects so there is no concept of destructor in Java. 
+
 ## Access Modifiers
 - Classes: `public` (accessible everywhere) or default/package-private (accessible within the same package).
 - Members (fields, methods, constructors):

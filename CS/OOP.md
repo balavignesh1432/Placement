@@ -57,6 +57,7 @@ An object consists of three components:
 ### Destructors
 - A special member function that is automatically called when an object is destroyed. 
 - Its primary purpose is to clean up resources the object was using, such as deallocating memory, closing files, or terminating network connections.
+- A destructor cannot be overloaded, there can only be one destructor present in a class.
 ---
 
 ## The Four OOP Principles
@@ -157,6 +158,13 @@ An object consists of three components:
 #### Dynamic / Run-Time Polymorphism: Late Binding (Code execution decided at **runtime** in response to function call)
 - **Method Overriding:** Subclass method overrides base class method. Achieved by dynamic binding.
 
+---
+
+### Friends
+- **Friend Class:** Class that can access the private and protected members of another class, even though not member of class.
+- **Friend Functions:** Special function that is allowed to access private and protected data of a class, even though it's not a member of the class.
+
+---
 
 ## Object Relationships
 
