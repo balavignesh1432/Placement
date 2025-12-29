@@ -31,7 +31,7 @@ def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
     def dfs(node, depth):
         if not node:
             return
-        if depth == len(res):
+        if depth == len(res):   # Ensures only one node per depth is added and it is the rightmost node
             res.append(node.val)
         dfs(node.right, depth + 1)
         dfs(node.left, depth + 1)
