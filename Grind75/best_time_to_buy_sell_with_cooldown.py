@@ -40,6 +40,7 @@ def maxProfit(self, prices: List[int]) -> int:
     # If parent was buy, then profit is basically subtract of that from returned
     # If parent was skip, then just sent back until the one that called buy, and calculate profit
     # Profit formula becomes -prices[buy] + 0 (Skip) + prices[sell] 
+    # IMP: Return value will never be negative as skip will be 0, max will choose 0.
     # TC: O(N), SC:(N) 
     dp = [[-1, -1] for _ in range(len(prices) +  1)]
     def helper(index, canBuy):
