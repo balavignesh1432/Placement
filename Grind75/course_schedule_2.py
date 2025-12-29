@@ -1,7 +1,7 @@
 def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
     # Topological Sort using Kahn's Algorithm (BFS)
     # Build adjacency list and indegree array
-    # Initialize queue with all nodes having indegree 0
+    # Initialize queue with all nodes having indegree 0 (Only outgoing edges has to come first)
     # Process nodes in queue, relaxing edges and updating indegree of neighbors
     # If indegree of neighbor becomes 0, add it to queue
     # If cycle exists, return empty array
