@@ -38,3 +38,36 @@ def distanceK(self, root: TreeNode, target: TreeNode, k: int) -> List[int]:
             return - 1
     findTarget(root)
     return res
+
+
+
+    # Graph BFS : Convert to graph by Using parent as neighbor 
+    # Build parent map which holds parent of each node
+    # This way each node uses 3 neihbors left right and parent
+    # Perform BFS from target node, and add nodes at distance k to result
+    # TC: O(N), SC: O(N) for parent map and queue and visited set
+
+    parent = {}
+
+    # Step 1: Build parent map
+    def dfs(node, par=None):
+        if not node:
+            return
+        parent[node] = par
+        dfs(node.left, node)
+        dfs(node.right, node)
+    dfs(root)
+    # Step 2: BFS from target
+    q = deque([(target, 0)])
+    visited = {target}
+    res = []
+    while q:
+        node, dist = q.popleft()
+        if dist == k:
+            res.append(node.val)
+            continue
+        for nei in (node.left, node.right, parent[node]):
+            if nei and nei not in visited:
+                visited.add(nei)
+                q.append((nei, dist + 1))
+    return res
