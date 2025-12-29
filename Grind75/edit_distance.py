@@ -32,7 +32,7 @@ def minDistance(self, word1: str, word2: str) -> int:
     for index1 in range(len(word1) - 1, -1, -1):
         dp[index1][-1] = len(word1) - index1
     for index1 in range(len(word1) - 1, -1, -1):
-        for index2 in range(len(word2) -1, -1, -1):
+        for index2 in range(len(word2) - 1, -1, -1):
             if word1[index1] == word2[index2]:
                 dp[index1][index2] = dp[index1 + 1][index2 + 1]
                 continue
@@ -42,11 +42,12 @@ def minDistance(self, word1: str, word2: str) -> int:
             dp[index1][index2] = min(insert, delete, replace)
     return dp[0][0]
 
-    # Space Optimised DP
-    # Min length has to be word 2
-    # replace dp[index1 + 1] with dp1
-    # Initialise dp1 to base case, 
-    # For Base of dp only last value has to be set, so inside the for loop just set for last pos of dp
+    # Space Optimised DP: Base Case Tricky
+    # Min length has to be word 2, For minimal space, perform swap
+    # Replace dp[index1 + 1] with dp1
+    # Last row is base case, which is dp1, so initalise dp1 by iterating over index2
+    # Last col is base case, but only for dp, so inside for loop of index1 because only one dp is available at a time. 
+    # Finally swap dp and dp1 
     # TC: O(M * N), SC: O(min(M, N))
     if len(word1) < len(word2):
         word1, word2 = word2, word1
@@ -59,7 +60,7 @@ def minDistance(self, word1: str, word2: str) -> int:
 
     for index1 in range(len(word1) - 1, -1, -1):
         dp[-1] = len(word1) - index1
-        for index2 in range(len(word2) -1, -1, -1):
+        for index2 in range(len(word2) - 1, -1, -1):
             if word1[index1] == word2[index2]:
                 dp[index2] = dp1[index2 + 1]
                 continue
