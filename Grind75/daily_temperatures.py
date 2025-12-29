@@ -17,17 +17,19 @@ def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
     return res
 
 
-    # Stack:
-    # Check if temp is greater than top element in stack
-    # If so, pop that element, update top element's result by computing distance
-    # Keep repeating this until temp is smaller than top or stack is empty
-    # Then push the current element to stack
+    # Mono Decreasing Stack:
+    # Traverse from end, maintain stack in decreasing temperatures
+    # For each temp, pop until higher temp is found,
+    # If found, calculate distance
+    # If stack empty, then distance is 0
+    # Push currennt temperature and index to stack
     # TC: O(N), SC: O(N)
     res =  [0] * len(temperatures)
     stack = []
-    for i in range(len(temperatures)):
-        while stack and stack[-1][0] < temperatures[i]:
+    for i in range(len(temperatures) - 1, -1, -1):
+        while stack and stack[-1][0] <= temperatures[i]:
             temp, index = stack.pop()
-            res[index] = i - index
+        if stack:
+            res[i] = stack[-1][1] - i 
         stack.append([temperatures[i], i])
     return res
