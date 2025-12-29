@@ -1,12 +1,13 @@
 def generateParenthesis(self, n: int) -> List[str]:
-    # Backtracking approach
+    # Backtracking approach: Use both opened and closed counter
+    # Do not decrement opened when closing, only increment closed
     # Use a helper function to build the parentheses combinations
     # Keep track of the number of opened and closed parentheses
     # If the number of opened parentheses is less than n, we can add an opening parent
     # Only close if there are more opened than closed parentheses
     # When the number of closed parentheses equals n, add the combination to the result
     # IMP: Use pop on list after each recursive call to backtrack, since lists are mutable
-    # Time: O(4^n / sqrt(n)) which is Catalan number Cn
+    # Time: O(4^n / sqrt(n)) which is Catalan number Cn, Since only valid combinations not all combinations
     # Space: O(n) for the recursion stack
     res = []
     def helper(opened, closed, brackets):
