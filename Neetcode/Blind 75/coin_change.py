@@ -23,7 +23,8 @@ def coinChange(self, coins: List[int], amount: int) -> int:
     res = helper(0, 0)
     return res if res != float('inf') else -1
 
-    # Can be implemented as 1D array.
+    # Same Time Complexity, Can be implemented as 1D array
+    # Reducing space, but same time complexity because increasing operations in each state
     # Instead of take, not take on Coins.
     # At each step going to take a coin, explore possible values for ith coin.
     # Call each denomination with subtracting the value from amount left
@@ -31,6 +32,7 @@ def coinChange(self, coins: List[int], amount: int) -> int:
     # Only call if coins is smaller or equal to amount left (Or return infinity)
     # Find minimum all possible coin denominations and return
     # TC: (amount * N) All denominations for each depth , SC: O(amount) # Max Depth is amount when denomination is 1
+    # Each amount value is only calculated once, and for each amount value all denominations are explored
     dp = {} # Can be 1D array or map
     def helper(left):
         if left == 0:   # If reached target amount return 0, is added 1 for the parent call
