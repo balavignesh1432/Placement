@@ -32,23 +32,31 @@ def sortColors(self, nums: List[int]) -> None:
     # Pointer 'zero' to track the position to place 0s
     # Pointer 'two' to track the position to place 2s
     # Pointer 'i' to traverse the array
-    # When nums[i] is 0, swap with nums[zero], Then move zero until it points to a non-0
-    # i is updated to zero since everything before zero is sorted
-    # When nums[i] is 2, swap with nums[two], Then move two until it points to a non-2
+    # This ensures 0..zero are all 0s, zero..i-1 are all 1s,two..end are all 2s, Only i..two needs to be checked
+    # When nums[i] is 0, swap with nums[zero], Then move zero and i forward
+    # Because 2 can never be at zero position, if it was i would have swapped it earlier
+    # Only way i moves forward of zero is when nums[i] is 1
+    # So zero to i-1 will always be 1s    
+    # When nums[i] is 2, swap with nums[two], Then move two forward 
+    # IMP: Do not move i forward here, as the swapped element from end needs to be checked (can be 0 or 1)
     # When nums[i] is 1, just move i forward
     # Time: O(N) where N is the length of the array
     # Space: O(1) since we are sorting in place
+    
     zero = i = 0
     two = len(nums) - 1
+    while zero < len(nums) and nums[zero] == 0:
+            zero += 1
+    while two >= 0 and nums[two] == 2:
+        two -= 1
+    i = zero
     while i <= two:                                     # Traverse until i crosses two
         if nums[i] == 0:                                # If current number is 0
             nums[zero], nums[i] = nums[i], nums[zero]   # Swap with the position of zero
-            while zero < len(nums) and nums[zero] == 0: # Move zero to the right until it points to a non-0
-                zero += 1
-            i = zero                                    # Update i to zero since everything before zero is sorted 0s
+            zero += 1
+            i += 1                                      # Because 1 would have been swapped to i, so move i forward
         elif nums[i] == 2:                              # If current number is 2
             nums[two], nums[i] = nums[i], nums[two]     # Swap with the position of two
-            while two >= 0 and nums[two] == 2:          # Move two to the left until it points to a non-2   
-                two -= 1
+            two -= 1
         else:                                           # If current number is 1
             i += 1                                      # Just move i forward      
