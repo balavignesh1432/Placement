@@ -1,5 +1,5 @@
 # Brute Force: DFS from each node to calculate the height rooted at that node. 
-# For each node, initialize height to 0, and for each neighbor (excluding the parent to avoid cycles),
+# For each node, initialize height to 1 (leaf), and for each neighbor (excluding the parent to avoid cycles),
 # Call the DFS function and add 1 to the returned height to account for the edge to the neighbor.
 # Keep track of the maximum height encountered among all neighbors to determine the height of the tree rooted at the current node.
 # After calculating heights for all nodes, find the minimum height among them.
@@ -7,13 +7,13 @@
 # Space Complexity: O(V + E) for the adjacency list.
 def findMinHeightTrees(self, n: int, edges: List[List[int]]) -> List[int]:
     adj = [[] for _ in range(n)]
-    heights = [0] * n
+    heights = [1] * n
     res = []
     for edge in edges:
         adj[edge[0]].append(edge[1])
         adj[edge[1]].append(edge[0])
     def dfs(node, parent):
-        height = 0
+        height = 1
         for neigh in adj[node]:
             if neigh != parent:
                 height = max(height, 1 + dfs(neigh, node))
