@@ -1,14 +1,12 @@
 def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
     # Recursion:
     # At each step, store the third node
-    # Reverse the node
-    # For the new next call with the third node
+    # Reverse the nodes
+    # For the new next, call with the third node
     # Return the second node in each call
-    # TC: O(N), SC: O(1)
+    # TC: O(N), SC: O(N) for recursion stack
     def helper(curr):
-        if not curr:
-            return None
-        if not curr.next:
+        if not curr or not curr.next:
             return curr
         nex = curr.next
         store = nex.next
@@ -33,11 +31,13 @@ def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
         second = prev.next.next
 
         # swap
-        first.next = second.next
+        store = second.next
         second.next = first
+        first.next = store
+        
+        # Link previous part to swapped
         prev.next = second
-
-        # move prev to the end of the swapped pair
+        # Move prev to the end of the swapped pair
         prev = first
 
     return dummy.next
