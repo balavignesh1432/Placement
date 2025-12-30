@@ -28,14 +28,14 @@ def sortColors(self, nums: List[int]) -> None:
         i += 1
 
     
-    # Use two pointers from end to sort in one pass
+    # Dutch National Flag: Use two pointers from end to sort in one pass
     # Pointer 'zero' to track the position to place 0s
     # Pointer 'two' to track the position to place 2s
     # Pointer 'i' to traverse the array
-    # This ensures 0..zero are all 0s, zero..i-1 are all 1s,two..end are all 2s, Only i..two needs to be checked
+    # This ensures 0..zero are all 0s, zero..i-1 are all 1s, two..end are all 2s, Only i..two needs to be checked
     # When nums[i] is 0, swap with nums[zero], Then move zero and i forward
     # Because 2 can never be at zero position, if it was i would have swapped it earlier
-    # Only way i moves forward of zero is when nums[i] is 1
+    # Only way i moves ahead of zero is when nums[i] is 1
     # So zero to i-1 will always be 1s    
     # When nums[i] is 2, swap with nums[two], Then move two forward 
     # IMP: Do not move i forward here, as the swapped element from end needs to be checked (can be 0 or 1)
@@ -45,10 +45,6 @@ def sortColors(self, nums: List[int]) -> None:
     
     zero = i = 0
     two = len(nums) - 1
-    while zero < len(nums) and nums[zero] == 0:
-            zero += 1
-    while two >= 0 and nums[two] == 2:
-        two -= 1
     i = zero
     while i <= two:                                     # Traverse until i crosses two
         if nums[i] == 0:                                # If current number is 0
