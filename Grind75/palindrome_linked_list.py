@@ -8,7 +8,7 @@ def isPalindrome(self, head: Optional[ListNode]) -> bool:
     return res == res[::-1]
         
     # Reverse Half Method
-    # Use fast and slow to find mid point
+    # Use fast and slow from head to find mid point (Head of second half pointed by slow)
     # Reverse second half
     # Check both half equality using two pointers, only until both are not None
     # If one reached end, return True (As only one element will be left if odd length)
@@ -16,12 +16,9 @@ def isPalindrome(self, head: Optional[ListNode]) -> bool:
     if not head.next:
         return True
     slow = fast = head
-    prev = None
     while fast and fast.next:
-        prev = slow
         slow = slow.next
         fast = fast.next.next
-    prev.next = None
     prev = None
     while slow:
         store = slow.next
