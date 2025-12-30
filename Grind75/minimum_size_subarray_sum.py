@@ -1,5 +1,5 @@
 def minSubArrayLen(self, target: int, nums: List[int]) -> int:
-    # Sliding Window: Only because all are positive
+    # Sliding Window: Only because all are positive, target sum >= (So prefix sum can not be used directly)
     # Window can be increased if sum is less than target, and decreased if greater than target.
     # Keep decreasing left until sum is greater than or equal to target, and keep computing minimum inside it
     # Because minimum of length satisfying that property is needed, so put that inside.
