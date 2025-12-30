@@ -43,7 +43,7 @@ def findTargetSumWays(self, nums: List[int], target: int) -> int:
             add = dp[index + 1][sums + nums[index]]
             sub = dp[index + 1][sums - nums[index]]
             dp[index][sums] = add + sub
-    return dp[index][0]
+    return dp[0][0]
 
     # Space optimized Bottom-up DP approach
     # Use two dictionaries to store current and previous row results
