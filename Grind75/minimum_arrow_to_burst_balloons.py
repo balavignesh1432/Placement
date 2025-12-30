@@ -1,6 +1,6 @@
 def findMinArrowShots(self, points: List[List[int]]) -> int:
     # Since it effectively turns into overlapping intervals problem
-    # But whenever there is overlap, update the last interval as that overlap only
+    # But whenever there is overlap, update the last interval as that overlap only (Intersection portion is the updated interval)
     # Since it is width of balloon, only in the overlap portion, can arrow burst it
     # So sort the points, then if no overlap, reset last interval to current, increase counter
     # If overlap, then update the interval to only overlap portion
