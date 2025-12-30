@@ -23,7 +23,7 @@ def topKFrequent(self, words: List[str], k: int) -> List[str]:
 # Reverse the comparison logic there
 # Then finally Pop all elements from heap, since min heap, will be in increasing order
 # So reverse it finally
-# TC: O(N log K), SC: O(K)
+# TC: O(N log K), SC: O(N) for count, O(K) for heap
 class Word:
     def __init__(self, word):
         self.word = word
