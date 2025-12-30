@@ -12,6 +12,8 @@ def partition(self, s: str) -> List[List[str]]:
         for i in range(index, len(s)):
             substring = s[index: i + 1]
             if substring == substring[::-1]:
-                backtrack(i + 1, part + [substring])
+                part.append(substring)
+                backtrack(i + 1, part)
+                part.pop()
     backtrack(0, [])
     return palindromePartitions
