@@ -32,8 +32,9 @@ def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
         take = helper(index + 1, sub)
         while index + 1 < len(nums) and nums[index] == nums[index + 1]:
             index += 1
+        index += 1
         sub.pop()
-        notTake = helper(index + 1, sub)
+        notTake = helper(index, sub)
     helper(0, [])
     return res
 
