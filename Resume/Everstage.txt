@@ -1,0 +1,203 @@
+Incentive Compensation Management refers to designing, managing, and automating a company’s compensation plan for its sales force.
+ICM helps companies manage how they reward employees—especially sales teams—based on their performance. 
+Instead of manually calculating commissions or bonuses, ICM systems automate this process using predefined rules 
+(like sales targets, deal size, quota completion, etc.).
+
+The users of Everstage can create incentive plans instantly with its easy-to-use plan builder, 
+simulate before launch and track them: all without writing a single line of code. 
+Everstage helps sales reps visualize the true power of incentives with personalized dashboards 
+and payout simulators, and sales reps can forecast commissions for the deals in their pipeline.
+
+salespeople are paid through commission, they receive a percentage of the sales revenue that they generate
+Another common way salespeople are paid is through a base salary plus commission structure
+That compensation structure is called a commission plan.
+
+
+Accuracy: Automating the commission management process can significantly reduce the risk of errors and ensure accurate and timely payments to salespeople.
+Efficiency: Automating commission management can help companies save time and resources
+Transparency: Automated commission management systems provide greater transparency to salespeople,
+Compliance: Automating commission management can help companies ensure compliance with legal and regulatory requirements
+Data Analysis: Automated commission management systems can provide valuable insights into sales performance and commission payouts.
+
+
+
+Everstage’s payroll system is a powerful tool that helps organizations manage their employees’ compensation plans efficiently. 
+It allows employers to add employee details such as their base pay, variable pay, joining date, effective date, reporting manager details, commission plans, quotas, draws, and more.
+
+The system also supports draw programs. Draw programs allow sales reps to receive a predetermined amount of money in advance, which is then deducted from their future commissions
+This helps ensure that sales reps have the financial resources they need to continue selling and generating revenue for the company. 
+Commission draws can be recoverable or non-recoverable, 
+In case of a recoverable draw, the salesperson will be required to pay back the advance amount from their future commissions.
+
+
+We offer several options for criteria, including simple, conditional, tier value-related, and quota-related criteria
+
+Our payouts system enables businesses to manage their commission payouts, lock/freeze commissions,
+useful for financial admins who need to review commissions before they are paid out
+
+The settlement rules can be set up to pay out commissions immediately or to hold them until a specific date, 
+such as the end of the quarter or fiscal year. 
+
+In addition, our payouts system includes an arrear view, which allows businesses to view historical data on commission payouts
+
+
+Our quotas page allows users to create quotas with ramping, which is especially useful for new hires. 
+Ramping allows new payees to have a slower start with lower quotas,
+
+Quota erosion takes into account any factors that may affect a salesperson’s ability to meet their targets, 
+such as market conditions or product availability. beyond their control.
+With quota erosion, users can adjust quotas downwards to account for any unforeseen circumstances
+
+
+RBAC:
+Our previous version of RBAC has some fixed roles such as admin, payee and viewer.
+ The fixed number of roles came up with some shortcomings where we want to grant access to certain parts of our application. 
+ So we have decided to create a new method where we could create as many custom roles as we want and assign them to users.
+
+UI permissions are those that decide whether a user can see a particular module 
+and what UI actions they can take in those modules
+
+Data permissions help control what data users can see in the modules they have access to. 
+The three basic configurations of data permissions are listed below.
+Individual - users with this permission can see only their data in a specific module.
+Team - their data along with reporting team data or data of users belonging to specific user groups in a specific module.
+All - users with this permission can see data of all users in a specific modul
+
+The requires_scope is the python decorator which checks for necessary permissions before accessing the API.
+@requires_scope("manage:commissionplan")
+class CommissionPlan(APIView):
+    def post(self, request):
+        # API call to create a new commission plan
+
+Then the logged-in user’s permissions are taken up from the database which stores as user to roles mapping.
+
+if user_has_not_access:
+  return Response(
+     status=status.HTTP_403_FORBIDDEN,
+     message="Unauthorized access to commission plans"
+  )
+
+
+
+
+Our application uses an ETL (Extract, Transform, Load) process to retrieve data from Customer Relationship Management (CRM) systems 
+like Salesforce, Hubspot where our clients deal related data would be stored, transform it into a more suitable format, 
+and then load it into our PostgreSQL database for further analysis.
+
+First, we extract data from the CRM systems by connecting to their APIs and retrieving the necessary data. 
+The extracted data is then transformed into a format that is suitable for our data model. 
+This involves cleaning and formatting the data, as well as performing any necessary calculations or aggregations.
+
+Once the data is transformed, we use Snowflake, a cloud-based data warehousing platform, to load the data into our PostgreSQL database.
+Finally, the data is loaded into our PostgreSQL database, where it can be further analyzed and used in commission calculation.
+
+
+
+
+
+
+The way we expose the external data to the users by means of databooks and datasheets. 
+We can think of each datasheet as a source of integration like Hubspot and each databook will have many datasheet
+
+
+
+Hierarchy Cycle Detection and Prevention:
+
+Whenever the reporting manager of an sales rep is getting changed, a check for the reporting hierarchy cycle should be done, 
+and if a cycle is about to form because of the new change, we should respond to the user with an error message.
+The values returned from the query should be modeled as a directed graph, 
+then the hierarchy cycle should be detected using the DFS and error response should be thrown if a cycle is detected.
+
+employee A is having two managers in two different time periods, 
+B in the month of March and C from the April month. 
+Consider the current date as March 15 on which a new change in the hierarchy is made, 
+employee A is appointed as the manager for C. 
+We shouldn’t be allowed to make such changes because 
+even though C is not the current manager of A, he will eventually become a manager in the future
+
+So if a reporting manager of an employee has to be changed, 
+all the future records of the reporting hierarchy should be considered for cycle detection in the hierarchy.
+
+Future reporting details given the current date
+Hierarchy.objects.filter(
+   client_id=client_id,
+   knowledge_end_date__isnull=True,
+   is_deleted=False,
+).filter(
+   Q(effective_end_date__isnull=True)|Q(effective_end_date__gt=dt)
+).values("reporting_manager_email_id", "employee_email_id")
+
+
+
+Access Control Issues:
+
+This is a security threat to the application that leaks sensitive information due to incorrect configuration of Graphql API permissions.
+Issue arose wherein certain sensitive APIs were erroneously assigned the VIEW:EVERSTAGE permission, 
+a designation associated with the lowest level of access. 
+Consequently, users possessing this minimal permission were able to interact with APIs, 
+despite lacking adequate access privileges as these were the APIs that were called during startup of the application
+
+To rectify this vulnerability, the solution necessitated the removal of the API calls from the Global store. 
+Instead, a localized store was introduced within the specific pages that required access to the global data. 
+By restructuring the architecture in this manner, API requests were deferred until a user navigated to the relevant page, 
+ensuring that only authorized users could trigger these requests.
+
+Previously, the application relied on preloading data during startup, guaranteeing its availability upon page navigation. 
+With the transition to localized stores, this certainty was no longer assured. 
+Consequently, components had to be refactored to gracefully handle scenarios where data retrieval might not be instantaneous, 
+ensuring that the application remained stable even when data retrieval occurred post-page rendering.
+
+
+Admin Audit Log
+
+The Admin Console serves as the primary application utilized by administrators for the configuration of Everstage customers. 
+Within this platform, various configurations pertaining to clients, referred to as meta info, are managed comprehensively. 
+Among these configurations, the Auth0 setup plays a crucial role in determining user access to the application,
+specifying which credentials grant login privileges. 
+Administrators retain the ability to modify, remove, or add credentials as required.
+
+This application empowers administrators to perform essential customer management tasks, 
+including the addition, editing, and deletion of customer records, 
+particularly when customers cease their engagement with the company. 
+Moreover, administrators can configure email templates tailored for individual customers through the interface. 
+These templates are customizable and can be shared across multiple customers, streamlining communication efforts.
+
+This task fulfills the necessity for an auditing system in Admin Console capable of documenting changes in customer configurations. 
+This serves the purpose of facilitating the diagnosis of issues stemming from application misbehavior attributed to improper customer configurations.
+
+However, due to the absence of a record detailing which configurations were modified, by whom, and at what time, 
+the process of debugging such issues became exceedingly challenging.
+
+Key details logged include the specific client that was modified, the timestamp of the modification, 
+the user responsible for the change, and the nature of the modification (Create, Update, Delete). 
+Furthermore, the logging system incorporates a JSON Diff component, facilitating a detailed comparison between the state of the object before and after the modification. This comparison is presented in a tabular format, 
+offering clarity regarding the exact changes made.
+
+This endeavor involved delving deep into the backend systems, down to the service level, to pinpoint areas where modifications could occur. 
+Subsequently, a logging mechanism was integrated to record these alterations before any data modifications took place.
+
+
+
+Payout Filters:
+
+Payouts are generated when the commission sync is run.
+The commission sync fetches the data related to deals from the datasheet 
+and runs the commission plan against those data to calculate commission payouts.
+
+
+Developed a customizable RBAC framework, enabling creation of granular user roles with configurable UI visibility and data-access permissions, for improved flexibility and security
+
+Redesigned the RBAC model to support fully customizable roles with modular UI and data permission controls,
+
+
+Identified and resolved 15+ security vulnerabilities exposing sensitive GraphQL APIs to lowest-permission roles. 
+Implemented a page-level store architecture to defer API calls until authorized page is loaded, ensuring only authorized users could access restricted data
+
+
+
+Designed and implemented a dynamic hierarchy cycle detection mechanism using to detect and prevent manager–sales reps hierarchy cycles.
+improving data integrity and preventing misconfigured org structures.
+
+
+
+Developed a dashboard that enables Cloudwiry customers to hierarchize organisations and teams based on the cloud providers such as GCP, Azure, AWS. 

@@ -1,0 +1,171 @@
+Xpresslane:
+
+Xpresslane is an app designed for online shopping websites that helps make the checkout and payment process faster and easier.
+It’s mainly made for small e-commerce businesses so their customers can buy products quickly using features like 
+personalized checkout, one-click payment, order tracking, refunds, and reorders — all in one place.
+
+With Xpresslane, both buyers and business owners get a smooth experience:
+Customers can complete purchases quickly, track deliveries, reorder items, or request refunds without hassle.
+Businesses can improve their sales and customer satisfaction by offering a better, faster checkout system.
+
+Websites can combat abandoned carts and experience a significant improvement in conversions by adding easy plugins. 
+Xpresslane also provides a merchant dashboard where merchants can customize their payment mode discounts, payment mode charges, and shipping options.
+
+Merchant Console:
+Orders Page:
+This includes pagination, filtering based on the status, mode of payment, date of attempt, 
+price of the order and sorting based on the column value.
+
+Abandoned Orders:
+An order that has been abandoned can be retargeted to the user via 
+Email, WhatsApp or SMS by adding special discounts to grab the users attention
+
+Checkout Configurations:
+Discounts on the payment mode selected by the customer in the checkout process. 
+Add multiple discounts on a single payment mode based on the price slab the order falls in. 
+The discount amount can be a flat value or percentage of the order's grand total. 
+Maximum discount amount can also be configured in case the mode of discount is percentage. 
+●Cards
+●Netbanking
+●EMI
+●UPI
+
+COD Charges: Can be based on the price slab the order falls in.
+The charge can be a flat value or percentage of the order's grand total amount. 
+
+Coupon Configurations: Redeemed for a financial discount
+coupon code (unique) and coupon description that describes the purpose or target of the coupon.
+The coupon's discount amount can be a flat value or percentage of the order's grand total.
+Displaying coupons in suggestions in checkout.
+
+SKU Configuration: SKU stands for Stock Keeping Unit.
+Products are assigned different SKU numbers based on color, style, type and size. 
+Customization of products involves selecting features such as color, design, add-ons to 
+make a more unique item for that particular customer rather than a mass produced one.
+
+The SKU details of the products of a particular merchant can be uploaded via a File Uploader through the interface. 
+The template for the file upload can be downloaded before uploading that provides the merchants with the format of the file that could be uploaded through the interface. 
+The SKU based charges are further broadly categorized into price based and weight based. 
+
+Serviceability:
+Serviceability refers to the set of locations where the merchant could deliver the placed orders. 
+It is necessary to configure a set of pincodes to identify the locations that are deliverable. 
+This page enables the merchants to upload a file containing the list of serviceable locations by the merchant.
+The pincode validation is performed while the merchant uploads the serviceability file and if there is any error in the file, 
+it is then shown as a pop up to the merchant.
+
+
+Provided solutions handling multiple heavy file uploads efficiently, 
+
+
+SKU Charges Configuration
+
+
+Coupon Configurations: Redeemed for a financial discount
+coupon code (unique) and coupon description that describes the purpose or target of the coupon.
+The coupon's discount amount can be a flat value or percentage of the order's grand total.
+Displaying coupons in suggestions in checkout.
+Every gift card has monetary value loaded in them and has an expiration time set by the merchant. 
+Once the gift card is applied in the discount section in the checkout process, it is 
+validated against the merchant’s store through the store's admin API. 
+After the payment, if it is known that the gift card is reused, order placement will not happen and the respective merchant is notified through mail.
+
+Hitting the gift card API for all checkout discounts irrespective of the merchants will increase the response time of the application of discounts, 
+resulting in a huge impact on the fast checkout experience,  Higher latency More network load
+Optimization: Flag in Admin Console, only flag set true, hit the api on checkout
+Use a feature-flag to enable/disable gift card support per merchant dynamically.
+This helps rollout gift cards gradually, avoid hitting upstream APIs for merchants not ready.
+
+
+
+
+
+Capability for  cross-domain cookies for different merchant domains under Xpresslane. 
+(Have to Redirect to name of merchant domain from xpresslane domain)
+Local Storage is not generally shareable between different domains. 
+But local storage can contain crucial information like authentication data that will be needed by other domain.
+The data from local storage of one domain once set could  be sent to another domain using redirection and passing the data as URL params after being encoded.
+Once redirected the data from the URL params is decoded and set in the local storage of redirected domain.
+Then once again redirect back to the original domain after sharing the local storage data.
+
+Using URL Params during Redirection
+URL is visible in:
+Browser history, Logs, Analytics, Tokens or personal data should not be exposed
+use proper AES encryption
+Not suitable for large data
+
+const data = JSON.stringify({
+  name: "John",
+  token: "abc123",
+  cart: [1, 2, 3]
+});
+
+// Encode to avoid breaking the URL
+const encoded = encodeURIComponent(data);
+
+window.location.href = `https://domainB.com/callback?data=${encoded}`;
+
+New Domain:
+const params = new URLSearchParams(window.location.search);
+const encoded = params.get("data");
+
+if (encoded) {
+  const data = JSON.parse(decodeURIComponent(encoded));
+  localStorage.setItem("userData", JSON.stringify(data));
+}
+
+(Cross-Domain Messaging): Iframes
+DomainB loads an invisible iframe to domainA.
+domainA responds via same method.
+
+window.addEventListener("message", (event) => {
+  if (event.origin !== "https://domainB.com") return;
+
+  const storedData = localStorage.getItem("userData");
+  event.source.postMessage(JSON.parse(storedData), event.origin);   // Send Via Post Message
+});
+
+New Domain:
+<iframe id="storageFrame" src="https://domainA.com/storage-helper.html" style="display:none;"></iframe>
+<script>
+window.addEventListener("message", (event) => {
+  if (event.origin !== "https://domainA.com") return; // security check
+
+  const data = event.data;
+  localStorage.setItem("userData", JSON.stringify(data));
+});
+
+
+Parallel Chunk Uploads:
+Faster upload time	Utilizes available network bandwidth efficiently
+Lower retry cost	Only failed chunks retry, not whole file
+Resumable Uploads Save completed chunk indexes in localStorage
+User refreshes → continue where left off.
+
+function createChunks(file, chunkSize = 5 * 1024 * 1024) {
+  let chunks = [];
+  let start = 0;
+
+  while (start < file.size) {
+    chunks.push(file.slice(start, start + chunkSize));
+    start += chunkSize;
+  }
+  return chunks;
+}
+Fail due to memory spikes
+
+So we define a concurrency limit, e.g., 5 uploads at a time.
+const concurrency = 5;
+const queue = chunks.map((chunk, index) => () => uploadChunk(chunk, index));
+await Promise.all(queue.slice(0, concurrency).map(fn => fn()));
+
+
+
+
+
+
+implemented a Proof of Concept (PoC) to enable cross-domain session transfer between Xpresslane and merchant domains. Evaluated multiple approaches including URL query param injection and cross-domain messaging via hidden iframes, analyzing security, performance, and user experience impact.
+Built a SKU Config File upload module for merchants that handles very large files (>1GB), using parallel chunk uploads.
+Achieved up to 65% faster upload speeds, and eliminated full restart failures.
+
+API Optimisation by avoiding unnecessary gift card API hits for merchants that do not support gift cards, improving page load time by up to 20%.
