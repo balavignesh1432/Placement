@@ -6,7 +6,7 @@ def reorganizeString(self, s: str) -> str:
     # If no other character is available, return "", as it's not possible to reorganize
     # Modify the count and reinsert into the heap if still available
     # Time Complexity: O(N log 26) where N is length of string and K is number of unique characters
-    # Space Complexity: O(26) for the count dictionary and max-heap
+    # Space Complexity: O(N) for the result list; count dictionary and max-heap (K)
     # But K <= 26 for lowercase English letters, so O(1) space effectively
     count = {}
     maxHeap = []

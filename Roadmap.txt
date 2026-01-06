@@ -4,8 +4,44 @@ Grind/Blind 75/Sean Prasad
 SQL:
 Leetcode SQL 50 - SQL
 
-System Design:
+HLD System Design:
 Concepts: Neetcode/TUF/Gaurav Sen/Hello Interview
 
+
 Interview Questions:
-Interview Bit = DSA/ OOPS/ OS/ AWS
+Interview Bit = DSA/ OOPS/ OS/ AWS/ Software Enginnering/ Networks/ DBMS/ Python/ Java/ React
+
+Projects:
+OS Multithreading OpenMP C++
+
+LLD:
+OOPS in Java - TutorialsPoint and YT
+SOLID Design Principles - GFG and YT
+Design Patterns - GFG, Neetcode and YT  
+
+System Design Concepts: GFG
+
+Javascript - Event Loop, Async, Promise, Callback, micro and macro task, Web API
+callback hell
+prototype
+bind, call, apply
+Debouncing
+localstorage , session storage, cookie
+jwt
+closures memory leak
+web hooks
+React - Redux and Context API
+
+Backend
+SQL vs NoSQL
+Containerization
+Rate Limiting
+Caching
+CAP
+Load Balancing, Reverse Proxy
+Message Queues
+Versioning
+Java, Spring
+
+Shell Scripting
+Foundational AWS knowledge (IAM, VPC, EC2, RDS, Lambda/ECS/EKS).
