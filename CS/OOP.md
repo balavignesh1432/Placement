@@ -168,9 +168,10 @@ An object consists of three components:
 
 ## Object Relationships
 
-- **HAS-A (Unidirectional):** One class contains/references another as a field; represents composition or aggregation.
+
+- **HAS-A (Unidirectional - Part-Whole):** One class contains/references another as a field; represents composition or aggregation.
 - **Aggregation:** HAS-A where the contained object can exist independently.
 - **Composition:** HAS-A where the contained object cannot exist without the container; child objects depend on the parent’s lifetime.
-- **KNOWS-A (Bidirectional):** Two classes reference each other to collaborate. It represents **Association**. 
+- **KNOWS-A (Uni and Bidirectional, No Part-Whole):** Two classes can reference each other to collaborate. It represents **Association**. 
 - **Dependency (One-time interaction):** Method takes object of another as method parameters, as local variables, or return type as another Object.
 
