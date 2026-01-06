@@ -57,6 +57,12 @@ for i in range(2, 6):
 for i in range(5, 1, -1):
     print(i)
 
+# Switch Case
+match n:
+    case 1: print()
+    case 2: print()
+    case _: print() # Default
+
 #Data Types
 int()
 float()
@@ -128,7 +134,7 @@ print(arr)
 
 # Initialize arr of size n with default value of 1
 n = 5
-arr = [1] * n
+arr = [1] * n # (1 - Has to be Immutable)
 print(arr)
 print(len(arr))
 
@@ -229,7 +235,7 @@ sorted(s)
 "".join(sorted(s))
 
 # Valid numeric strings can be converted
-print(int("123") + int("123"))
+print(int("123") + int("-123"))
 
 # And numbers can be converted to strings
 print(str(123) + str(123))
@@ -237,6 +243,9 @@ print(str(123) + str(123))
 # In rare cases you may need the ASCII value of a char
 print(ord("a"))
 print(ord("b"))
+
+print(chr(65))  # A
+print(chr(97))  # a
 
 # Combine a list of strings (with an empty string delimitor)
 strings = ["ab", "cd", "ef"]
@@ -463,3 +472,34 @@ print(myObj.getDoubleLength())
 
 # Immutable Objects: 
 # Int, Float, String, Bool
+
+
+# Multithreading: Use threading package, which provides Thread and Semaphore
+
+from threading import Thread, Semaphore
+
+# To initialise Semaphore:
+x = Semaphore(1)  # Binary Semaphore ()
+y = Semaphore(10) # Counting Semaphore ()   
+
+# To wait (Acquires and reduces 1)
+x.acquire()
+
+# To Signal (Releases and adds 1)
+x.release() 
+
+# To create Thread
+t1 = Thread(target=func(), daemon=True)
+# Daemon threads are non blocking threads, meaning they execute in background, but
+# Can use join to wait for their completion
+# if main terminates they are terminated as well
+
+# Non Daemon threads Block program exit - Python waits for them to finish before exiting
+# Main program won't terminate until all non-daemon threads complete
+
+# To start Thread
+t1.start()
+ 
+# join() makes the calling thread wait until the target thread finishes.
+# To join Thread 
+t1.join()   # O/w if daemon threads, then main will exit and terminate them
