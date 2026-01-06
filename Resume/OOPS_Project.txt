@@ -1,0 +1,52 @@
+User launches the phone simulator.
+
+System asks the user to register as either:
+Admin (full access)
+Guest (limited access)
+
+The user logs in.
+Based on role, corresponding menu is shown.
+
+User performs tasks like:
+
+Add/View/Edit/Delete Contacts
+Send/Read Messages
+Add/Play/Delete Songs
+
+Concept	Implementation
+Inheritance	        Admin/Guest inherit from Phone
+Encapsulation	    Private data, public methods
+Polymorphism	    Different menu displays per user type
+Abstraction	        Hide implementation details in .cpp
+Composition	        Phone contains Contacts, Message, Music objects
+
+
+
+| OOP Concept       | Where Used                                                      | Example                                                  |
+| ----------------- | --------------------------------------------------------------- | -------------------------------------------------------- |
+| **Encapsulation** | Classes hide internal data and expose functionality via methods | Private attributes like `name`, `number`, `message`      |
+| **Inheritance**   | Guest and Admin share user features                             | Common methods: `register()`, `updateProfile()`          |
+| **Polymorphism**  | Menu structure changes depending on role                        | `showMenu()` prints different options for Admin/Guest    |
+| **Abstraction**   | Complex file handling logic is hidden                           | Users just call `newContact()` instead of managing files |
+| **Composition**   | `PHONE` owns user object                                        | Phone must exist for User to interact                    |
+| **Association**   | User uses Contact/Music/Message classes                         | `Admin → Contacts`, `User → Music`, etc.                 |
+| **Aggregation**   | User has multiple messages, contacts, songs                     | One user → many items                                    |
+
+
+This project is a Mobile Phone Simulator built using Object-Oriented Programming principles. 
+The system supports two roles: Administrator and Guest, each with different levels of access. 
+The system is modeled using UML that includes a main PHONE class responsible for authentication and system control. 
+The Admin and Guest classes represent different user types and are responsible for accessing applications like Contacts, Music, and Messages. 
+Each application is represented as a separate class and provides methods to perform actions like adding, editing, deleting, or viewing items.
+
+The system demonstrates several OOP concepts. Inheritance allows Admin and Guest to share common behavior while enabling role-based customization. 
+Encapsulation is used to protect internal data, allowing access only through class methods. 
+Polymorphism helps the program respond differently based on user type. 
+Composition and Association model the relationship between the phone, users, and applications. 
+Finally, Abstraction hides complex file handling operations from the user, offering a clean and user-friendly interface.
+
+
+
+
+
+Created a fully functional phone OS simulation supporting messaging, contacts, and music management with role-based permissions. Leveraged OOP design patterns and UML modeling for system structure, improving modularity and maintainability. Implemented data persistence using text-file storage to simulate real device memory.

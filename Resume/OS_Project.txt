@@ -1,0 +1,81 @@
+Cigarette Smokers Problem:
+3 smokers → each one has one unique ingredient:
+
+Smoker A → Tobacco
+Smoker B → Paper
+Smoker C → Matches
+
+The Agent randomly places two of the three ingredients on the table.
+
+The smoker who has the third missing ingredient wakes up, takes the items, and makes a cigarette, then signals the agent when done.
+
+The Agent places two ingredients.
+Pushers decide which smoker should be triggered.
+The correct smoker smokes and signals the agent to continue.
+
+
+Agent waits until a smoker finishes smoking.
+Then randomly chooses which two ingredients to place
+
+Pushers store partial ingredient states and wake the exact smoker who has the missing ingredient reliably.
+There are three pusher threads—each wakes up when its ingredient is placed.
+
+Pushers do not know which smoker should smoke, so they use shared flags:
+If another ingredient is already available → wake the correct smoker
+Otherwise → store their ingredient by setting a flag.
+
+
+
+Semaphores:
+sem_wait(&sem)
+If the semaphore value is greater than 0, it decrements the value and the thread continues.
+If the semaphore value is 0, the thread blocks (waits) until another thread increases it.
+
+sem_post(&sem)
+Increments the semaphore value.
+If a thread was waiting on sem_wait(), one of them wakes up.
+
+agentSem: Controls when the agent can place ingredients. Initialized to 1 so the agent starts first.
+tobacco, paper, match: Semaphores representing availability of those ingredients.
+smokerTobacco, smokerPaper, smokerMatch: Semaphores to wake up the correct smoker.
+
+Mutex:
+pthread_mutex_lock() is used to protect shared data so that only one thread at a time can access or modify it. 
+It prevents race conditions, where multiple threads read/modify shared variables at the same time and produce unpredictable results.
+
+A mutex (mutual exclusion lock) is like a key to a shared room:
+Only one thread can hold the key at a time.
+If another thread wants to enter while it's locked, it must wait.
+
+Case 1 — Mutex is Unlocked
+The calling thread acquires the mutex.
+The mutex state changes to locked.
+The thread enters the critical section (shared resource).
+
+Case 2 — Mutex is Locked by Another Thread
+The thread blocks (waits).
+It is placed into a waiting queue managed by the scheduler.
+It will continue only when the owning thread unlocks the mutex.
+
+
+Shared flags: int haveTobacco, havePaper, haveMatch; are read and modified by multiple pusher threads.
+
+Without mutex:
+Two pushers might see the same ingredient state.
+Both might wake two smokers incorrectly.
+
+With lock: 
+Only one pusher updates flags at a time, ensuring correctness.
+
+
+
+Without Pushers:
+Deadlock
+If a smoker waits on paper first, consumes it, then waits on match, 
+the system may get stuck if the agent places paper again before match.
+
+The smoker could consume one ingredient and block forever waiting for the other.
+Race conditions
+Multiple smokers may try to consume the same semaphore.
+Without coordination, you can end up with two smokers thinking they can smoke, 
+but only one actually has the missing ingredient.
