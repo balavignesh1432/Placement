@@ -458,6 +458,12 @@ static int add(int a, int b) {
     return a + b;
 }
 ```
+--- 
+
+## Variable Scope
+- Block scope: variables inside `if`, `for`, `while` are accessible only in that block.
+- Method scope: variables declared directly in a method are usable anywhere in that method.
+- Class scope (fields): variables declared in a class but outside methods are accessible to all methods in that class.
 
 ---
 
@@ -608,6 +614,51 @@ while (it.hasNext()) {
 ```
 ---
 
+
+## Packages and Imports
+- Packages group related classes and avoid name conflicts (think folders).
+- Java API is organized into packages/classes.
+- Import usage:
+  - `import package.name.Class;` (single class)
+  - `import package.name.*;` (entire package)
+- Create a package with `package mypack;` (package names in lowercase to avoid class-name conflicts).
+
+## Input with Scanner
+- Use `Scanner` Class from `java.util` package:
+```java
+  import java.util.Scanner;
+  Scanner input = new Scanner(System.in);
+  String name = input.nextLine();
+```
+- Common methods:
+  - `nextLine()` reads `String`
+  - `nextInt()` reads `int`
+  - `nextBoolean()` reads `boolean`
+  - `nextDouble()` reads `double`
+  - `nextLong()` reads `long`
+- Invalid input causes `InputMismatchException`.
+---
+## Exception Handling
+- When an error occurs, Java will normally stop and throw an exception.
+- **try** - Block of code to be tested for errors while it is being executed.
+- **catch** - Block of code to be executed, if an error occurs in the try block.
+- **finally** - Execute code, after try...catch, regardless of the result.
+
+```java
+try{
+    // Test or Experiment
+}catch(Exception e){
+    // Handle Exception
+}finally{
+    // After both
+}
+```
+-  **throw** -  Create a custom error, used together with an exception type. 
+```java
+throw new SecurityException("Access Denied");
+```
+---
+
 ## Quick Reference Summary
 
 ### File Naming
@@ -644,31 +695,3 @@ ArrayList<String> list = new ArrayList<>();
 
 array literals {} can only be used at declaration time, not directly as arguments.
 new Dog("1", 1, new int[]{1, 2});
-
-## Packages and Imports
-- Packages group related classes and avoid name conflicts (think folders).
-- Java API is organized into packages/classes.
-- Import usage:
-  - `import package.name.Class;` (single class)
-  - `import package.name.*;` (entire package)
-- Create a package with `package mypack;` (package names in lowercase to avoid class-name conflicts).
-
-## Input with Scanner
-- Use `Scanner` Class from `java.util` package:
-  - `import java.util.Scanner;`
-  - `Scanner input = new Scanner(System.in);`
-  - `String name = input.nextLine();`
-- Common methods:
-  - `nextLine()` reads `String`
-  - `nextInt()` reads `int`
-  - `nextBoolean()` reads `boolean`
-  - `nextDouble()` reads `double`
-  - `nextLong()` reads `long`
-- Invalid input causes `InputMismatchException`.
-
-
-## Variable Scope
-- Block scope: variables inside `if`, `for`, `while` are accessible only in that block.
-- Method scope: variables declared directly in a method are usable anywhere in that method.
-- Class scope (fields): variables declared in a class but outside methods are accessible to all methods in that class.
-
