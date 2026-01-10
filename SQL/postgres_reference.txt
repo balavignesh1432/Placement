@@ -76,7 +76,7 @@ So, if you use column aliases in the SELECT clause, you cannot use them in the W
 
 Boolean value can have one of three values: true, false, and null.
 true, 't', 'true', 'y', 'yes', '1' to represent true  
-false, 'f', 'false', 'n', 'no', and '0' to represent false.
+false, 'f', 'false', 'n', 'no', and '0' to represent false. 
 
 Operators
 =	    Equal
@@ -138,7 +138,9 @@ value NOT IN (value1, value2, ...)
 
 :: cast operator, payment_date::date, payment_date column has the type timestamp that consists of both date and time parts.
 
-BETWEEN:
+Use TO_CHAR(date, 'YYYY-MM'), Convert date to formatted string
+
+BETWEEN: (Both Inclusive)
 If the value is greater than or equal to the low value and less than or equal to the high value, 
 the BETWEEN operator returns true; otherwise, it returns false.
 
@@ -170,7 +172,7 @@ value IS NOT NULL
 
 Empty is not treated as null
 
-
+In almost all of the join, number of column is A + B, EXCEPT natural join, and USING()
 JOIN or INNER JOIN:
 If these values are equal, the inner join creates a new row that contains columns from both tables 
 and adds this new row to the result set. Can be applied to more than two tables.
@@ -209,7 +211,8 @@ Table Aliases: useful shorthand when joining
 table_name AS alias_name
 
 If same column name, then can use USING()
-a INNER JOIN b USING(customer_id)
+a INNER JOIN b USING(customer_id) 
+Here if USING(), then number of columns becomes A + B - Common Columns
 
 SELF JOIN: 
 A self-join is a regular join that joins a table to itself. 
@@ -228,7 +231,7 @@ ON f1.film_id > f2.film_id AND f1.length = f2.length;
 CROSS JOIN:
 FROM table1 CROSS JOIN table2;
 the CROSS JOIN clause does not have a join predicate.
-you can use an INNER JOIN clause with a condition that always evaluates to true to simulate a cross-join
+you can use an INNER JOIN clause with a condition that always evaluates to true to simulate a cross-join.
 
 NATURAL JOIN:
 The convenience of the NATURAL JOIN is that it does not require you to specify the condition in the join clause 
@@ -237,13 +240,14 @@ A natural join can be an inner join, left join, or right join.
 If you do not specify an explicit join, PostgreSQL will use the INNER JOIN by default.
 
 NATURAL [INNER, LEFT, RIGHT] JOIN table2;
+Number of columns in result will be A + B - Common Columns.
 
 Data Types:
-INTEGER - typical choice for integer (2^32 - 1)
+INTEGER - typical choice for integer 4 Bytes (2^32 - 1)
 BIGINT - 8 Bytes (2^64 - 1)
 NUMERIC - up to 131072 digits before the decimal point; up to 16383 digits after the decimal point
 DOUBLE PRECISION - 15 decimal digits precision
-VARCHAT(n) - Variable length with limit
+VARCHAR(n) - Variable length with limit
 CHAR(n) - Fixed Length with limit
 TEXT() - Variable length without limit (Common)
 BOOLEAN - true, false, null (Common)
@@ -269,14 +273,61 @@ SQRT()
 ROUND(num, [precision])   Rounds to nearest integer. Default no decimal places. Has to be numeric not double.
 TRUNC(num, [precision])   Truncates digits to the right of the decimal point. Or left if num is negative.
 
-So type cast (::) to numeric
-num::numeric
+So type cast (::) to NUMERIC
+num::NUMERIC
 
 Aggregate Functions: 
 MAX()
 MIN()
 SUM()
-COUNT()
+COUNT() - Count(*) counts all rows, count(column) counts only non null
 AVG()
 
 COALESCE(val, 0) - Use replace null value with default value
+
+CASE: Specify switch case, use condition with WHEN, result in THEN, use ELSE finally for default, and then END
+CASE
+WHEN rating < 3 THEN 1
+WHEN rating > 4 THEN 2
+ELSE 0
+END
+
+
+DDL:
+CREATE TABLE: specify name, columns, and data types.
+CREATE TABLE table(
+   year INTEGER,
+   name VARCHAR(25),
+   created DATE,
+)
+
+INSERT INTO: Provide list of rows inside paranthesis separated by comma.
+INSERT INTO table(year, name, created)
+VALUES 
+   (2020, 'One', '28-05-2024'), 
+   (2022, 'Two', '30-04-2023');
+
+DELETE FROM: Deletes rows from table specified in WHERE clause
+DELETE FROM table
+WHERE year = 2020;
+If ommitted WHERE, all records are deleted
+
+TRUNCATE TABLE: Deletes all rows from table, no transaction logging, so cannot roll back. But faster.
+TRUNCATE TABLE table;  
+
+DROP TABLE: Deletes the table itself, table no longer exists.
+DROP TABLE table;
+
+
+
+Prefer JOIN over IN as it if often implemented as Nested loop, 
+as SQL Optimizer can choose:
+Hash Join (very fast)
+Merge Join
+Index Join
+Matching happens in one pass 
+
+For each employee → check if ID exists in 100k list
+Build a hash table of 100k managers → match in O(1)
+
+Most modern optimizers rewrite IN to a JOIN
